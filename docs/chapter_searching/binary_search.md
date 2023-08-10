@@ -6,20 +6,19 @@
 
     给定一个长度为 $n$ 的数组 `nums` ，元素按从小到大的顺序排列，数组不包含重复元素。请查找并返回元素 `target` 在该数组中的索引。若数组不包含该元素，则返回 $-1$ 。
 
-对于上述问题，我们先初始化指针 $i = 0$ 和 $j = n - 1$ ，分别指向数组首元素和尾元素，代表搜索区间 $[0, n - 1]$ 。其中，中括号表示“闭区间”，即包含边界值本身。
+![二分查找示例数据](binary_search.assets/binary_search_example.png)
+
+对于上述问题，我们先初始化指针 $i = 0$ 和 $j = n - 1$ ，分别指向数组首元素和尾元素，代表搜索区间 $[0, n - 1]$ 。请注意，中括号表示闭区间，其包含边界值本身。
 
 接下来，循环执行以下两个步骤：
 
 1. 计算中点索引 $m = \lfloor {(i + j) / 2} \rfloor$ ，其中 $\lfloor \space \rfloor$ 表示向下取整操作。
 2. 判断 `nums[m]` 和 `target` 的大小关系，分为三种情况：
-    1. 当 `nums[m] < target` 时，说明 `target` 在区间 $[m + 1, j]$ 中，因此执行 $i = m + 1$ ；
-    2. 当 `nums[m] > target` 时，说明 `target` 在区间 $[i, m - 1]$ 中，因此执行 $j = m - 1$ ；
-    3. 当 `nums[m] = target` 时，说明找到 `target` ，因此返回索引 $m$ ；
+    1. 当 `nums[m] < target` 时，说明 `target` 在区间 $[m + 1, j]$ 中，因此执行 $i = m + 1$ 。
+    2. 当 `nums[m] > target` 时，说明 `target` 在区间 $[i, m - 1]$ 中，因此执行 $j = m - 1$ 。
+    3. 当 `nums[m] = target` 时，说明找到 `target` ，因此返回索引 $m$ 。
 
 若数组不包含目标元素，搜索区间最终会缩小为空。此时返回 $-1$ 。
-
-=== "<0>"
-    ![二分查找步骤](binary_search.assets/binary_search_step0.png)
 
 === "<1>"
     ![binary_search_step1](binary_search.assets/binary_search_step1.png)
@@ -68,13 +67,13 @@
     [class]{}-[func]{binarySearch}
     ```
 
-=== "JavaScript"
+=== "JS"
 
     ```javascript title="binary_search.js"
     [class]{}-[func]{binarySearch}
     ```
 
-=== "TypeScript"
+=== "TS"
 
     ```typescript title="binary_search.ts"
     [class]{}-[func]{binarySearch}
@@ -108,6 +107,12 @@
 
     ```dart title="binary_search.dart"
     [class]{}-[func]{binarySearch}
+    ```
+
+=== "Rust"
+
+    ```rust title="binary_search.rs"
+    [class]{}-[func]{binary_search}
     ```
 
 时间复杂度为 $O(\log n)$ 。每轮缩小一半区间，因此二分循环次数为 $\log_2 n$ 。
@@ -144,13 +149,13 @@
     [class]{}-[func]{binarySearchLCRO}
     ```
 
-=== "JavaScript"
+=== "JS"
 
     ```javascript title="binary_search.js"
     [class]{}-[func]{binarySearchLCRO}
     ```
 
-=== "TypeScript"
+=== "TS"
 
     ```typescript title="binary_search.ts"
     [class]{}-[func]{binarySearchLCRO}
@@ -184,6 +189,12 @@
 
     ```dart title="binary_search.dart"
     [class]{}-[func]{binarySearchLCRO}
+    ```
+
+=== "Rust"
+
+    ```rust title="binary_search.rs"
+    [class]{}-[func]{binary_search_lcro}
     ```
 
 如下图所示，在两种区间表示下，二分查找算法的初始化、循环条件和缩小区间操作皆有所不同。

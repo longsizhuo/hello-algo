@@ -4,13 +4,10 @@ Created Time: 2023-06-13
 Author: Krahets (krahets@163.com)
 """
 
+import sys, os.path as osp
 
-class Pair:
-    """键值对"""
-
-    def __init__(self, key: int, val: str):
-        self.key = key
-        self.val = val
+sys.path.append(osp.dirname(osp.dirname(osp.abspath(__file__))))
+from chapter_hashing.array_hash_map import Pair
 
 
 class HashMapOpenAddressing:
@@ -96,7 +93,7 @@ class HashMapOpenAddressing:
             if pair not in [None, self.removed]:
                 self.put(pair.key, pair.val)
 
-    def print(self) -> None:
+    def print(self):
         """打印哈希表"""
         for pair in self.buckets:
             if pair is not None:

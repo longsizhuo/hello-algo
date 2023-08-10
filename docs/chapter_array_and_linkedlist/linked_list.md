@@ -1,10 +1,10 @@
 # 链表
 
-内存空间是所有程序的公共资源，排除已被占用的内存空间，空闲内存空间通常散落在内存各处。在上一节中，我们提到存储数组的内存空间必须是连续的，而当我们需要申请一个非常大的数组时，空闲内存中可能没有这么大的连续空间。与数组相比，链表更具灵活性，它可以被存储在非连续的内存空间中。
+内存空间是所有程序的公共资源，排除已被占用的内存空间，空闲内存空间通常散落在内存各处。在上一节中，我们提到存储数组的内存空间必须是连续的，而当需要申请一个非常大的数组时，空闲内存中可能没有这么大的连续空间。与数组相比，链表更具灵活性，它可以被存储在非连续的内存空间中。
 
 「链表 Linked List」是一种线性数据结构，其每个元素都是一个节点对象，各个节点之间通过指针连接，从当前节点通过指针可以访问到下一个节点。**由于指针记录了下个节点的内存地址，因此无需保证内存地址的连续性**，从而可以将各个节点分散存储在内存各处。
 
-链表「节点 Node」包含两项数据，一是节点「值 Value」，二是指向下一节点的「指针 Pointer」，或称「引用 Reference」。
+链表中的「节点 Node」包含两项数据，一是节点「值 Value」，二是指向下一节点的「指针 Pointer」，或称「引用 Reference」。
 
 ![链表定义与存储方式](linked_list.assets/linkedlist_definition.png)
 
@@ -58,7 +58,7 @@
     }
     ```
 
-=== "JavaScript"
+=== "JS"
 
     ```javascript title=""
     /* 链表节点类 */
@@ -72,7 +72,7 @@
     }
     ```
 
-=== "TypeScript"
+=== "TS"
 
     ```typescript title=""
     /* 链表节点类 */
@@ -111,8 +111,7 @@
 
     ```csharp title=""
     /* 链表节点类 */
-    class ListNode
-    {
+    class ListNode {
         int val;         // 节点值
         ListNode next;   // 指向下一节点的引用
         ListNode(int x) => val = x;  //构造函数
@@ -164,13 +163,20 @@
     }
     ```
 
-!!! question "尾节点指向什么？"
+=== "Rust"
 
-    我们将链表的最后一个节点称为「尾节点」，其指向的是“空”，在 Java, C++, Python 中分别记为 $\text{null}$ , $\text{nullptr}$ , $\text{None}$ 。在不引起歧义的前提下，本书都使用 $\text{None}$ 来表示空。
+    ```rust title=""
+    use std::rc::Rc;
+    use std::cell::RefCell;
+    /* 链表节点类 */
+    #[derive(Debug)]
+    struct ListNode {
+        val: i32, // 节点值
+        next: Option<Rc<RefCell<ListNode>>>, // 指向下一节点的指针（引用）
+    }
+    ```
 
-!!! question "如何称呼链表？"
-
-    在编程语言中，数组整体就是一个变量，例如数组 `nums` ，包含各个元素 `nums[0]` , `nums[1]` 等等。而链表是由多个节点对象组成，我们通常将头节点当作链表的代称，例如头节点 `head` 和链表 `head` 实际上是同义的。
+我们将链表的首个节点称为「头节点」，最后一个节点称为「尾节点」。尾节点指向的是“空”，在 Java, C++, Python 中分别记为 $\text{null}$ , $\text{nullptr}$ , $\text{None}$ 。在不引起歧义的前提下，本书都使用 $\text{None}$ 来表示空。
 
 **链表初始化方法**。建立链表分为两步，第一步是初始化各个节点对象，第二步是构建引用指向关系。完成后，即可以从链表的头节点（即首个节点）出发，通过指针 `next` 依次访问所有节点。
 
@@ -242,7 +248,7 @@
     n3.Next = n4
     ```
 
-=== "JavaScript"
+=== "JS"
 
     ```javascript title="linked_list.js"
     /* 初始化链表 1 -> 3 -> 2 -> 5 -> 4 */
@@ -259,7 +265,7 @@
     n3.next = n4;
     ```
 
-=== "TypeScript"
+=== "TS"
 
     ```typescript title="linked_list.ts"
     /* 初始化链表 1 -> 3 -> 2 -> 5 -> 4 */
@@ -361,9 +367,29 @@
     n3.next = n4;
     ```
 
+=== "Rust"
+
+    ```rust title="linked_list.rs"
+    /* 初始化链表 1 -> 3 -> 2 -> 5 -> 4 */
+    // 初始化各个节点
+    let n0 = Rc::new(RefCell::new(ListNode { val: 1, next: None }));
+    let n1 = Rc::new(RefCell::new(ListNode { val: 3, next: None }));
+    let n2 = Rc::new(RefCell::new(ListNode { val: 2, next: None }));
+    let n3 = Rc::new(RefCell::new(ListNode { val: 5, next: None }));
+    let n4 = Rc::new(RefCell::new(ListNode { val: 4, next: None }));
+
+    // 构建引用指向
+    n0.borrow_mut().next = Some(n1.clone());
+    n1.borrow_mut().next = Some(n2.clone());
+    n2.borrow_mut().next = Some(n3.clone());
+    n3.borrow_mut().next = Some(n4.clone());
+    ```
+
+在编程语言中，数组整体是一个变量，比如数组 `nums` 包含元素 `nums[0]` , `nums[1]` 等。而链表是由多个分散的节点对象组成，**我们通常将头节点当作链表的代称**，比如以上代码中的链表可被记做链表 `n0` 。
+
 ## 链表优点
 
-**链表中插入与删除节点的操作效率高**。例如，如果我们想在链表中间的两个节点 `A` , `B` 之间插入一个新节点 `P` ，我们只需要改变两个节点指针即可，时间复杂度为 $O(1)$ ；相比之下，数组的插入操作效率要低得多。
+**链表中插入与删除节点的操作效率高**。如果我们想在链表中间的两个节点 `A` , `B` 之间插入一个新节点 `P` ，我们只需要改变两个节点指针即可，时间复杂度为 $O(1)$ ；相比之下，数组的插入操作效率要低得多。
 
 ![链表插入节点](linked_list.assets/linkedlist_insert_node.png)
 
@@ -391,13 +417,13 @@
     [class]{}-[func]{insertNode}
     ```
 
-=== "JavaScript"
+=== "JS"
 
     ```javascript title="linked_list.js"
     [class]{}-[func]{insert}
     ```
 
-=== "TypeScript"
+=== "TS"
 
     ```typescript title="linked_list.ts"
     [class]{}-[func]{insert}
@@ -430,6 +456,12 @@
 === "Dart"
 
     ```dart title="linked_list.dart"
+    [class]{}-[func]{insert}
+    ```
+
+=== "Rust"
+
+    ```rust title="linked_list.rs"
     [class]{}-[func]{insert}
     ```
 
@@ -461,13 +493,13 @@
     [class]{}-[func]{removeNode}
     ```
 
-=== "JavaScript"
+=== "JS"
 
     ```javascript title="linked_list.js"
     [class]{}-[func]{remove}
     ```
 
-=== "TypeScript"
+=== "TS"
 
     ```typescript title="linked_list.ts"
     [class]{}-[func]{remove}
@@ -503,9 +535,15 @@
     [class]{}-[func]{remove}
     ```
 
+=== "Rust"
+
+    ```rust title="linked_list.rs"
+    [class]{}-[func]{remove}
+    ```
+
 ## 链表缺点
 
-**链表访问节点效率较低**。如上节所述，数组可以在 $O(1)$ 时间下访问任意元素。然而，链表无法直接访问任意节点，这是因为系统需要从头节点出发，逐个向后遍历直至找到目标节点。例如，若要访问链表索引为 `index`（即第 `index + 1` 个）的节点，则需要向后遍历 `index` 轮。
+**链表访问节点效率较低**。如上节所述，数组可以在 $O(1)$ 时间下访问任意元素。然而链表无法直接访问任意节点，因为程序需要从头节点出发，逐个向后遍历，直至找到目标节点。也就是说，如果想要访问链表中第 $i$ 个节点，则需要向后遍历 $i - 1$ 轮。
 
 === "Java"
 
@@ -531,13 +569,13 @@
     [class]{}-[func]{access}
     ```
 
-=== "JavaScript"
+=== "JS"
 
     ```javascript title="linked_list.js"
     [class]{}-[func]{access}
     ```
 
-=== "TypeScript"
+=== "TS"
 
     ```typescript title="linked_list.ts"
     [class]{}-[func]{access}
@@ -573,7 +611,13 @@
     [class]{}-[func]{access}
     ```
 
-**链表的内存占用较大**。链表以节点为单位，每个节点除了保存值之外，还需额外保存指针（引用）。这意味着在相同数据量的情况下，链表比数组需要占用更多的内存空间。
+=== "Rust"
+
+    ```rust title="linked_list.rs"
+    [class]{}-[func]{access}
+    ```
+
+**链表的内存占用较大**。链表以节点为单位，每个节点除了包含值，还需额外保存下一节点的引用（指针）。这意味着在相同数据量的情况下，链表比数组需要占用更多的内存空间。
 
 ## 链表常用操作
 
@@ -603,13 +647,13 @@
     [class]{}-[func]{findNode}
     ```
 
-=== "JavaScript"
+=== "JS"
 
     ```javascript title="linked_list.js"
     [class]{}-[func]{find}
     ```
 
-=== "TypeScript"
+=== "TS"
 
     ```typescript title="linked_list.ts"
     [class]{}-[func]{find}
@@ -642,6 +686,12 @@
 === "Dart"
 
     ```dart title="linked_list.dart"
+    [class]{}-[func]{find}
+    ```
+
+=== "Rust"
+
+    ```rust title="linked_list.rs"
     [class]{}-[func]{find}
     ```
 
@@ -708,7 +758,7 @@
     }
     ```
 
-=== "JavaScript"
+=== "JS"
 
     ```javascript title=""
     /* 双向链表节点类 */
@@ -724,7 +774,7 @@
     }
     ```
 
-=== "TypeScript"
+=== "TS"
 
     ```typescript title=""
     /* 双向链表节点类 */
@@ -824,4 +874,49 @@
     }
     ```
 
+=== "Rust"
+
+    ```rust title=""
+    use std::rc::Rc;
+    use std::cell::RefCell;
+
+    /* 双向链表节点类型 */
+    #[derive(Debug)]
+    struct ListNode {
+        val: i32, // 节点值
+        next: Option<Rc<RefCell<ListNode>>>, // 指向后继节点的指针（引用）
+        prev: Option<Rc<RefCell<ListNode>>>, // 指向前驱节点的指针（引用）
+    }
+    
+    /* 构造函数 */
+    impl ListNode {
+        fn new(val: i32) -> Self {
+            ListNode {
+                val,
+                next: None,
+                prev: None,
+            }
+        }
+    }
+    ```
+
 ![常见链表种类](linked_list.assets/linkedlist_common_types.png)
+
+## 链表典型应用
+
+单向链表通常用于实现栈、队列、散列表和图等数据结构。
+
+- **栈与队列**：当插入和删除操作都在链表的一端进行时，它表现出先进后出的的特性，对应栈；当插入操作在链表的一端进行，删除操作在链表的另一端进行，它表现出先进先出的特性，对应队列。
+- **散列表**：链地址法是解决哈希冲突的主流方案之一，在该方案中，所有冲突的元素都会被放到一个链表中。
+- **图**：邻接表是表示图的一种常用方式，在其中，图的每个顶点都与一个链表相关联，链表中的每个元素都代表与该顶点相连的其他顶点。
+
+双向链表常被用于需要快速查找前一个和下一个元素的场景。
+
+- **高级数据结构**：比如在红黑树、B 树中，我们需要知道一个节点的父节点，这可以通过在节点中保存一个指向父节点的指针来实现，类似于双向链表。
+- **浏览器历史**：在网页浏览器中，当用户点击前进或后退按钮时，浏览器需要知道用户访问过的前一个和后一个网页。双向链表的特性使得这种操作变得简单。
+- **LRU 算法**：在缓存淘汰算法（LRU）中，我们需要快速找到最近最少使用的数据，以及支持快速地添加和删除节点。这时候使用双向链表就非常合适。
+
+循环链表常被用于需要周期性操作的场景，比如操作系统的资源调度。
+
+- **时间片轮转调度算法**：在操作系统中，时间片轮转调度算法是一种常见的 CPU 调度算法，它需要对一组进程进行循环。每个进程被赋予一个时间片，当时间片用完时，CPU 将切换到下一个进程。这种循环的操作就可以通过循环链表来实现。
+- **数据缓冲区**：在某些数据缓冲区的实现中，也可能会使用到循环链表。比如在音频、视频播放器中，数据流可能会被分成多个缓冲块并放入一个循环链表，以便实现无缝播放。

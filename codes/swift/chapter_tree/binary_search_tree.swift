@@ -90,7 +90,6 @@ class BinarySearchTree {
     }
 
     /* 删除节点 */
-    @discardableResult
     func remove(num: Int) {
         // 若树为空，直接提前返回
         if root == nil {
@@ -123,7 +122,7 @@ class BinarySearchTree {
             // 当子节点数量 = 0 / 1 时， child = null / 该子节点
             let child = cur?.left != nil ? cur?.left : cur?.right
             // 删除节点 cur
-            if cur != root {
+            if cur !== root {
                 if pre?.left === cur {
                     pre?.left = child
                 } else {
@@ -131,7 +130,7 @@ class BinarySearchTree {
                 }
             } else {
                 // 若删除节点为根节点，则重新指定根节点
-                root = cur;
+                root = child
             }
         }
         // 子节点数量 = 2
@@ -160,7 +159,7 @@ enum _BinarySearchTree {
         PrintUtil.printTree(root: bst.getRoot())
 
         /* 查找节点 */
-        var node = bst.search(num: 7)
+        let node = bst.search(num: 7)
         print("\n查找到的节点对象为 \(node!)，节点值 = \(node!.val)")
 
         /* 插入节点 */

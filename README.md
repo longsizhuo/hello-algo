@@ -1,29 +1,27 @@
 <p align="center">
   <a href="https://www.hello-algo.com/">
-    <img src="https://www.hello-algo.com/index.assets/conceptual_rendering.png" width="200">
-  </a>
-  &emsp; &emsp;
-  <a href="https://www.hello-algo.com/">
-    <img src="https://www.hello-algo.com/index.assets/hello_algo_knowledge_map_tp.png" width="310">
+    <img src="https://www.hello-algo.com/index.assets/conceptual_rendering.png" width="150">
   </a>
 </p>
 
 <p align="center">
-  动画图解、能运行、可提问的数据结构与算法教程
+  <img src="https://readme-typing-svg.demolab.com?font=Fira+Code&weight=500&duration=3500&pause=2000&color=21C8B8&center=true&vCenter=true&width=200&lines=Hello%2C+%E7%AE%97%E6%B3%95+!" alt="hello-algo-typing-svg" />
+  </br>
+  动画图解、一键运行的数据结构与算法教程
 </p>
 
 <p align="center">
   <a href="https://www.hello-algo.com/">
-    <img src="https://www.hello-algo.com/index.assets/btn_read_online.png" width="150">
+    <img src="https://www.hello-algo.com/index.assets/btn_read_online_dark.png" width="150">
   </a>
   <a href="https://github.com/krahets/hello-algo/releases">
-    <img src="https://www.hello-algo.com/index.assets/btn_download_pdf.png" width="150">
+    <img src="https://www.hello-algo.com/index.assets/btn_download_pdf_dark.png" width="150">
   </a>
 </p>
 
 <p align="center">
-  <img src="https://www.hello-algo.com/index.assets/animation.gif" width="49%">
-  <img src="https://www.hello-algo.com/index.assets/running_code.gif" width="49%">
+  <img src="https://www.hello-algo.com/index.assets/animation.gif" width="400">
+  <img src="https://www.hello-algo.com/index.assets/running_code.gif" width="400">
 </p>
 
 ## 关于本书
@@ -50,9 +48,9 @@
 
 我们正在加速更新本书，欢迎您通过提交 Pull Request 来[参与本项目](https://www.hello-algo.com/chapter_appendix/contribution/)，以帮助其他读者获取更优质的学习内容。
 
-- 若您发现语法错误、内容缺失、文字歧义、无效链接、解释不清晰等问题，请协助修正或在评论区指出；
-- 期待您参与 C++, Python, Go, JavaScript, TypeScript, C, C#, Swift, Zig, Rust, Dart 等语言的[代码翻译](https://github.com/krahets/hello-algo/issues/15)；
-- 欢迎您为本书内容提出宝贵意见和建议，如有任何问题请提交 Issues 或微信联系 krahets-jyd ；
+- 若您发现语法错误、内容缺失、文字歧义、无效链接、解释不清晰等问题，请协助修正或在评论区指出。
+- 期待您参与 C++, Python, Go, JavaScript, TypeScript, C, C#, Swift, Zig, Rust, Dart 等语言的[代码翻译](https://github.com/krahets/hello-algo/issues/15)。
+- 欢迎您为本书内容提出宝贵意见和建议，如有任何问题请提交 Issues 或微信联系 krahets-jyd 。
 
 感谢本开源书的每一位撰稿人，是他们的无私奉献让这本书变得更好，他们是：
 

@@ -9,17 +9,6 @@ package chapter_hashing;
 import java.util.ArrayList;
 import java.util.List;
 
-/* 键值对 */
-class Pair {
-    public int key;
-    public String val;
-
-    public Pair(int key, String val) {
-        this.key = key;
-        this.val = val;
-    }
-}
-
 /* 链式地址哈希表 */
 class HashMapChaining {
     int size; // 键值对数量
@@ -91,10 +80,12 @@ class HashMapChaining {
         List<Pair> bucket = buckets.get(index);
         // 遍历桶，从中删除键值对
         for (Pair pair : bucket) {
-            if (pair.key == key)
+            if (pair.key == key) {
                 bucket.remove(pair);
+                size--;
+                break;
+            }
         }
-        size--;
     }
 
     /* 扩容哈希表 */

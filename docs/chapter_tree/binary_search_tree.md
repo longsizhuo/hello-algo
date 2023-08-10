@@ -2,20 +2,22 @@
 
 「二叉搜索树 Binary Search Tree」满足以下条件：
 
-1. 对于根节点，左子树中所有节点的值 $<$ 根节点的值 $<$ 右子树中所有节点的值；
-2. 任意节点的左、右子树也是二叉搜索树，即同样满足条件 `1.` ；
+1. 对于根节点，左子树中所有节点的值 $<$ 根节点的值 $<$ 右子树中所有节点的值。
+2. 任意节点的左、右子树也是二叉搜索树，即同样满足条件 `1.` 。
 
 ![二叉搜索树](binary_search_tree.assets/binary_search_tree.png)
 
 ## 二叉搜索树的操作
 
+我们将二叉搜索树封装为一个类 `ArrayBinaryTree` ，并声明一个成员变量 `root` ，指向树的根节点。
+
 ### 查找节点
 
 给定目标节点值 `num` ，可以根据二叉搜索树的性质来查找。我们声明一个节点 `cur` ，从二叉树的根节点 `root` 出发，循环比较节点值 `cur.val` 和 `num` 之间的大小关系
 
-- 若 `cur.val < num` ，说明目标节点在 `cur` 的右子树中，因此执行 `cur = cur.right` ；
-- 若 `cur.val > num` ，说明目标节点在 `cur` 的左子树中，因此执行 `cur = cur.left` ；
-- 若 `cur.val = num` ，说明找到目标节点，跳出循环并返回该节点；
+- 若 `cur.val < num` ，说明目标节点在 `cur` 的右子树中，因此执行 `cur = cur.right` 。
+- 若 `cur.val > num` ，说明目标节点在 `cur` 的左子树中，因此执行 `cur = cur.left` 。
+- 若 `cur.val = num` ，说明找到目标节点，跳出循环并返回该节点。
 
 === "<1>"
     ![二叉搜索树查找节点示例](binary_search_tree.assets/bst_search_step1.png)
@@ -55,13 +57,13 @@
     [class]{binarySearchTree}-[func]{search}
     ```
 
-=== "JavaScript"
+=== "JS"
 
     ```javascript title="binary_search_tree.js"
     [class]{}-[func]{search}
     ```
 
-=== "TypeScript"
+=== "TS"
 
     ```typescript title="binary_search_tree.ts"
     [class]{}-[func]{search}
@@ -97,12 +99,18 @@
     [class]{BinarySearchTree}-[func]{search}
     ```
 
+=== "Rust"
+
+    ```rust title="binary_search_tree.rs"
+    [class]{BinarySearchTree}-[func]{search}
+    ```
+
 ### 插入节点
 
 给定一个待插入元素 `num` ，为了保持二叉搜索树“左子树 < 根节点 < 右子树”的性质，插入操作分为两步：
 
-1. **查找插入位置**：与查找操作相似，从根节点出发，根据当前节点值和 `num` 的大小关系循环向下搜索，直到越过叶节点（遍历至 $\text{None}$ ）时跳出循环；
-2. **在该位置插入节点**：初始化节点 `num` ，将该节点置于 $\text{None}$ 的位置；
+1. **查找插入位置**：与查找操作相似，从根节点出发，根据当前节点值和 `num` 的大小关系循环向下搜索，直到越过叶节点（遍历至 $\text{None}$ ）时跳出循环。
+2. **在该位置插入节点**：初始化节点 `num` ，将该节点置于 $\text{None}$ 的位置。
 
 二叉搜索树不允许存在重复节点，否则将违反其定义。因此，若待插入节点在树中已存在，则不执行插入，直接返回。
 
@@ -132,13 +140,13 @@
     [class]{binarySearchTree}-[func]{insert}
     ```
 
-=== "JavaScript"
+=== "JS"
 
     ```javascript title="binary_search_tree.js"
     [class]{}-[func]{insert}
     ```
 
-=== "TypeScript"
+=== "TS"
 
     ```typescript title="binary_search_tree.ts"
     [class]{}-[func]{insert}
@@ -174,6 +182,12 @@
     [class]{BinarySearchTree}-[func]{insert}
     ```
 
+=== "Rust"
+
+    ```rust title="binary_search_tree.rs"
+    [class]{BinarySearchTree}-[func]{insert}
+    ```
+
 为了插入节点，我们需要利用辅助节点 `pre` 保存上一轮循环的节点，这样在遍历至 $\text{None}$ 时，我们可以获取到其父节点，从而完成节点插入操作。
 
 与查找节点相同，插入节点使用 $O(\log n)$ 时间。
@@ -182,19 +196,20 @@
 
 与插入节点类似，我们需要在删除操作后维持二叉搜索树的“左子树 < 根节点 < 右子树”的性质。首先，我们需要在二叉树中执行查找操作，获取待删除节点。接下来，根据待删除节点的子节点数量，删除操作需分为三种情况：
 
-当待删除节点的子节点数量 $= 0$ 时，表示待删除节点是叶节点，可以直接删除。
+当待删除节点的度为 $0$ 时，表示待删除节点是叶节点，可以直接删除。
 
 ![在二叉搜索树中删除节点（度为 0）](binary_search_tree.assets/bst_remove_case1.png)
 
-当待删除节点的子节点数量 $= 1$ 时，将待删除节点替换为其子节点即可。
+当待删除节点的度为 $1$ 时，将待删除节点替换为其子节点即可。
 
 ![在二叉搜索树中删除节点（度为 1）](binary_search_tree.assets/bst_remove_case2.png)
 
-当待删除节点的子节点数量 $= 2$ 时，删除操作分为三步：
+当待删除节点的度为 $2$ 时，我们无法直接删除它，而需要使用一个节点替换该节点。由于要保持二叉搜索树“左 $<$ 根 $<$ 右”的性质，因此这个节点可以是右子树的最小节点或左子树的最大节点。
 
-1. 找到待删除节点在“中序遍历序列”中的下一个节点，记为 `tmp` ；
-2. 在树中递归删除节点 `tmp` ；
-3. 用 `tmp` 的值覆盖待删除节点的值；
+假设我们选择右子树的最小节点（即中序遍历的下一个节点），则删除操作为：
+
+1. 找到待删除节点在“中序遍历序列”中的下一个节点，记为 `tmp` 。
+2. 将 `tmp` 的值覆盖待删除节点的值，并在树中递归删除节点 `tmp` 。
 
 === "<1>"
     ![二叉搜索树删除节点示例](binary_search_tree.assets/bst_remove_case3_step1.png)
@@ -234,13 +249,13 @@
     [class]{binarySearchTree}-[func]{remove}
     ```
 
-=== "JavaScript"
+=== "JS"
 
     ```javascript title="binary_search_tree.js"
     [class]{}-[func]{remove}
     ```
 
-=== "TypeScript"
+=== "TS"
 
     ```typescript title="binary_search_tree.ts"
     [class]{}-[func]{remove}
@@ -273,6 +288,12 @@
 === "Dart"
 
     ```dart title="binary_search_tree.dart"
+    [class]{BinarySearchTree}-[func]{remove}
+    ```
+
+=== "Rust"
+
+    ```rust title="binary_search_tree.rs"
     [class]{BinarySearchTree}-[func]{remove}
     ```
 

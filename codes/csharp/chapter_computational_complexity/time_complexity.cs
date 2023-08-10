@@ -87,9 +87,7 @@ public class time_complexity {
             for (int j = 0; j < i; j++) {
                 if (nums[j] > nums[j + 1]) {
                     // 交换 nums[j] 与 nums[j + 1]
-                    int tmp = nums[j];
-                    nums[j] = nums[j + 1];
-                    nums[j + 1] = tmp;
+                    (nums[j + 1], nums[j]) = (nums[j], nums[j + 1]);
                     count += 3;  // 元素交换包含 3 个单元操作
                 }
             }
@@ -100,7 +98,7 @@ public class time_complexity {
     /* 指数阶（循环实现） */
     static int exponential(int n) {
         int count = 0, bas = 1;
-        // cell 每轮一分为二，形成数列 1, 2, 4, 8, ..., 2^(n-1)
+        // 细胞每轮一分为二，形成数列 1, 2, 4, 8, ..., 2^(n-1)
         for (int i = 0; i < n; i++) {
             for (int j = 0; j < bas; j++) {
                 count++;

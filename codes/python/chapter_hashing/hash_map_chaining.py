@@ -4,12 +4,10 @@ Created Time: 2023-06-13
 Author: Krahets (krahets@163.com)
 """
 
-class Pair:
-    """键值对"""
+import sys, os.path as osp
 
-    def __init__(self, key: int, val: str):
-        self.key = key
-        self.val = val
+sys.path.append(osp.dirname(osp.dirname(osp.abspath(__file__))))
+from chapter_hashing.array_hash_map import Pair
 
 
 class HashMapChaining:
@@ -68,7 +66,7 @@ class HashMapChaining:
             if pair.key == key:
                 bucket.remove(pair)
                 self.size -= 1
-                return
+                break
 
     def extend(self):
         """扩容哈希表"""

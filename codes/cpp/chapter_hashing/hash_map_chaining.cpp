@@ -4,18 +4,7 @@
  * Author: Krahets (krahets@163.com)
  */
 
-#include "../utils/common.hpp"
-
-/* 键值对 */
-struct Pair {
-  public:
-    int key;
-    string val;
-    Pair(int key, string val) {
-        this->key = key;
-        this->val = val;
-    }
-};
+#include "./array_hash_map.cpp"
 
 /* 链式地址哈希表 */
 class HashMapChaining {
@@ -103,6 +92,8 @@ class HashMapChaining {
         for (auto &bucket : bucketsTmp) {
             for (Pair *pair : bucket) {
                 put(pair->key, pair->val);
+                // 释放内存
+                delete pair;
             }
         }
     }

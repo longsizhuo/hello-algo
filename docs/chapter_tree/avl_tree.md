@@ -71,7 +71,7 @@ G. M. Adelson-Velsky 和 E. M. Landis 在其 1962 年发表的论文 "An algorit
     }
     ```
 
-=== "JavaScript"
+=== "JS"
 
     ```javascript title=""
     /* AVL 树节点类 */
@@ -89,7 +89,7 @@ G. M. Adelson-Velsky 和 E. M. Landis 在其 1962 年发表的论文 "An algorit
     }
     ```
 
-=== "TypeScript"
+=== "TS"
 
     ```typescript title=""
     /* AVL 树节点类 */
@@ -182,6 +182,12 @@ G. M. Adelson-Velsky 和 E. M. Landis 在其 1962 年发表的论文 "An algorit
     }
     ```
 
+=== "Rust"
+
+    ```rust title=""
+
+    ```
+
 「节点高度」是指从该节点到最远叶节点的距离，即所经过的“边”的数量。需要特别注意的是，叶节点的高度为 0 ，而空节点的高度为 -1 。我们将创建两个工具函数，分别用于获取和更新节点的高度。
 
 === "Java"
@@ -216,7 +222,7 @@ G. M. Adelson-Velsky 和 E. M. Landis 在其 1962 年发表的论文 "An algorit
     [class]{aVLTree}-[func]{updateHeight}
     ```
 
-=== "JavaScript"
+=== "JS"
 
     ```javascript title="avl_tree.js"
     [class]{AVLTree}-[func]{height}
@@ -224,7 +230,7 @@ G. M. Adelson-Velsky 和 E. M. Landis 在其 1962 年发表的论文 "An algorit
     [class]{AVLTree}-[func]{#updateHeight}
     ```
 
-=== "TypeScript"
+=== "TS"
 
     ```typescript title="avl_tree.ts"
     [class]{AVLTree}-[func]{height}
@@ -272,6 +278,14 @@ G. M. Adelson-Velsky 和 E. M. Landis 在其 1962 年发表的论文 "An algorit
     [class]{AVLTree}-[func]{updateHeight}
     ```
 
+=== "Rust"
+
+    ```rust title="avl_tree.rs"
+    [class]{AVLTree}-[func]{height}
+
+    [class]{AVLTree}-[func]{update_height}
+    ```
+
 ### 节点平衡因子
 
 节点的「平衡因子 Balance Factor」定义为节点左子树的高度减去右子树的高度，同时规定空节点的平衡因子为 0 。我们同样将获取节点平衡因子的功能封装成函数，方便后续使用。
@@ -300,13 +314,13 @@ G. M. Adelson-Velsky 和 E. M. Landis 在其 1962 年发表的论文 "An algorit
     [class]{aVLTree}-[func]{balanceFactor}
     ```
 
-=== "JavaScript"
+=== "JS"
 
     ```javascript title="avl_tree.js"
     [class]{AVLTree}-[func]{balanceFactor}
     ```
 
-=== "TypeScript"
+=== "TS"
 
     ```typescript title="avl_tree.ts"
     [class]{AVLTree}-[func]{balanceFactor}
@@ -340,6 +354,12 @@ G. M. Adelson-Velsky 和 E. M. Landis 在其 1962 年发表的论文 "An algorit
 
     ```dart title="avl_tree.dart"
     [class]{AVLTree}-[func]{balanceFactor}
+    ```
+
+=== "Rust"
+
+    ```rust title="avl_tree.rs"
+    [class]{AVLTree}-[func]{balance_factor}
     ```
 
 !!! note
@@ -398,13 +418,13 @@ AVL 树的特点在于「旋转 Rotation」操作，它能够在不影响二叉�
     [class]{aVLTree}-[func]{rightRotate}
     ```
 
-=== "JavaScript"
+=== "JS"
 
     ```javascript title="avl_tree.js"
     [class]{AVLTree}-[func]{#rightRotate}
     ```
 
-=== "TypeScript"
+=== "TS"
 
     ```typescript title="avl_tree.ts"
     [class]{AVLTree}-[func]{rightRotate}
@@ -438,6 +458,12 @@ AVL 树的特点在于「旋转 Rotation」操作，它能够在不影响二叉�
 
     ```dart title="avl_tree.dart"
     [class]{AVLTree}-[func]{rightRotate}
+    ```
+
+=== "Rust"
+
+    ```rust title="avl_tree.rs"
+    [class]{AVLTree}-[func]{right_rotate}
     ```
 
 ### 左旋
@@ -476,13 +502,13 @@ AVL 树的特点在于「旋转 Rotation」操作，它能够在不影响二叉�
     [class]{aVLTree}-[func]{leftRotate}
     ```
 
-=== "JavaScript"
+=== "JS"
 
     ```javascript title="avl_tree.js"
     [class]{AVLTree}-[func]{#leftRotate}
     ```
 
-=== "TypeScript"
+=== "TS"
 
     ```typescript title="avl_tree.ts"
     [class]{AVLTree}-[func]{leftRotate}
@@ -518,6 +544,12 @@ AVL 树的特点在于「旋转 Rotation」操作，它能够在不影响二叉�
     [class]{AVLTree}-[func]{leftRotate}
     ```
 
+=== "Rust"
+
+    ```rust title="avl_tree.rs"
+    [class]{AVLTree}-[func]{left_rotate}
+    ```
+
 ### 先左旋后右旋
 
 对于下图中的失衡节点 3，仅使用左旋或右旋都无法使子树恢复平衡。此时需要先左旋后右旋，即先对 `child` 执行「左旋」，再对 `node` 执行「右旋」。
@@ -542,10 +574,10 @@ AVL 树的特点在于「旋转 Rotation」操作，它能够在不影响二叉�
 
 | 失衡节点的平衡因子 | 子节点的平衡因子 | 应采用的旋转方法 |
 | ---------------- | ---------------- | ---------------- |
-| $>0$ （即左偏树）  | $\geq 0$         | 右旋             |
-| $>0$ （即左偏树）  | $<0$             | 先左旋后右旋     |
-| $<0$ （即右偏树）  | $\leq 0$         | 左旋             |
-| $<0$ （即右偏树）  | $>0$             | 先右旋后左旋     |
+| $>1$ （即左偏树）  | $\geq 0$         | 右旋             |
+| $>1$ （即左偏树）  | $<0$             | 先左旋后右旋     |
+| $<-1$ （即右偏树）  | $\leq 0$         | 左旋             |
+| $<-1$ （即右偏树）  | $>0$             | 先右旋后左旋     |
 
 </div>
 
@@ -575,13 +607,13 @@ AVL 树的特点在于「旋转 Rotation」操作，它能够在不影响二叉�
     [class]{aVLTree}-[func]{rotate}
     ```
 
-=== "JavaScript"
+=== "JS"
 
     ```javascript title="avl_tree.js"
     [class]{AVLTree}-[func]{#rotate}
     ```
 
-=== "TypeScript"
+=== "TS"
 
     ```typescript title="avl_tree.ts"
     [class]{AVLTree}-[func]{rotate}
@@ -614,6 +646,12 @@ AVL 树的特点在于「旋转 Rotation」操作，它能够在不影响二叉�
 === "Dart"
 
     ```dart title="avl_tree.dart"
+    [class]{AVLTree}-[func]{rotate}
+    ```
+
+=== "Rust"
+
+    ```rust title="avl_tree.rs"
     [class]{AVLTree}-[func]{rotate}
     ```
 
@@ -655,7 +693,7 @@ AVL 树的特点在于「旋转 Rotation」操作，它能够在不影响二叉�
     [class]{aVLTree}-[func]{insertHelper}
     ```
 
-=== "JavaScript"
+=== "JS"
 
     ```javascript title="avl_tree.js"
     [class]{AVLTree}-[func]{insert}
@@ -663,7 +701,7 @@ AVL 树的特点在于「旋转 Rotation」操作，它能够在不影响二叉�
     [class]{AVLTree}-[func]{#insertHelper}
     ```
 
-=== "TypeScript"
+=== "TS"
 
     ```typescript title="avl_tree.ts"
     [class]{AVLTree}-[func]{insert}
@@ -711,6 +749,14 @@ AVL 树的特点在于「旋转 Rotation」操作，它能够在不影响二叉�
     [class]{AVLTree}-[func]{insertHelper}
     ```
 
+=== "Rust"
+
+    ```rust title="avl_tree.rs"
+    [class]{AVLTree}-[func]{insert}
+
+    [class]{AVLTree}-[func]{insert_helper}
+    ```
+
 ### 删除节点
 
 类似地，在二叉搜索树的删除节点方法的基础上，需要从底至顶地执行旋转操作，使所有失衡节点恢复平衡。
@@ -747,7 +793,7 @@ AVL 树的特点在于「旋转 Rotation」操作，它能够在不影响二叉�
     [class]{aVLTree}-[func]{removeHelper}
     ```
 
-=== "JavaScript"
+=== "JS"
 
     ```javascript title="avl_tree.js"
     [class]{AVLTree}-[func]{remove}
@@ -755,7 +801,7 @@ AVL 树的特点在于「旋转 Rotation」操作，它能够在不影响二叉�
     [class]{AVLTree}-[func]{#removeHelper}
     ```
 
-=== "TypeScript"
+=== "TS"
 
     ```typescript title="avl_tree.ts"
     [class]{AVLTree}-[func]{remove}
@@ -803,14 +849,22 @@ AVL 树的特点在于「旋转 Rotation」操作，它能够在不影响二叉�
     [class]{AVLTree}-[func]{removeHelper}
     ```
 
+=== "Rust"
+
+    ```rust title="avl_tree.rs"
+    [class]{AVLTree}-[func]{remove}
+
+    [class]{AVLTree}-[func]{remove_helper}
+    ```
+
 ### 查找节点
 
 AVL 树的节点查找操作与二叉搜索树一致，在此不再赘述。
 
 ## AVL 树典型应用
 
-- 组织和存储大型数据，适用于高频查找、低频增删的场景；
-- 用于构建数据库中的索引系统；
+- 组织和存储大型数据，适用于高频查找、低频增删的场景。
+- 用于构建数据库中的索引系统。
 
 !!! question "为什么红黑树比 AVL 树更受欢迎？"
 

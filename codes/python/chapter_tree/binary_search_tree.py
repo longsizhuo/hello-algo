@@ -13,10 +13,10 @@ from modules import *
 class BinarySearchTree:
     """二叉搜索树"""
 
-    def __init__(self, nums: list[int]) -> None:
+    def __init__(self, nums: list[int]):
         """构造方法"""
         nums.sort()
-        self.__root = self.build_tree(nums, 0, len(nums) - 1)
+        self.root = self.build_tree(nums, 0, len(nums) - 1)
 
     def build_tree(
         self, nums: list[int], start_index: int, end_index: int
@@ -37,10 +37,6 @@ class BinarySearchTree:
         )
         return root
 
-    @property
-    def root(self) -> TreeNode | None:
-        return self.__root
-
     def search(self, num: int) -> TreeNode | None:
         """查找节点"""
         cur: TreeNode | None = self.root
@@ -57,7 +53,7 @@ class BinarySearchTree:
                 break
         return cur
 
-    def insert(self, num: int) -> None:
+    def insert(self, num: int):
         """插入节点"""
         # 若树为空，直接提前返回
         if self.root is None:
@@ -84,7 +80,7 @@ class BinarySearchTree:
         else:
             pre.left = node
 
-    def remove(self, num: int) -> None:
+    def remove(self, num: int):
         """删除节点"""
         # 若树为空，直接提前返回
         if self.root is None:
@@ -119,7 +115,7 @@ class BinarySearchTree:
                     pre.right = child
             else:
                 # 若删除节点为根节点，则重新指定根节点
-                self.__root = cur
+                self.root = child
         # 子节点数量 = 2
         else:
             # 获取中序遍历中 cur 的下一个节点

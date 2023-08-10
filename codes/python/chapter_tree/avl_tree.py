@@ -15,11 +15,7 @@ class AVLTree:
 
     def __init__(self, root: TreeNode | None = None):
         """构造方法"""
-        self.__root = root
-
-    @property
-    def root(self) -> TreeNode | None:
-        return self.__root
+        self.root = root
 
     def height(self, node: TreeNode | None) -> int:
         """获取节点高度"""
@@ -92,9 +88,9 @@ class AVLTree:
         # 平衡树，无需旋转，直接返回
         return node
 
-    def insert(self, val) -> None:
+    def insert(self, val):
         """插入节点"""
-        self.__root = self.__insert_helper(self.__root, val)
+        self.root = self.__insert_helper(self.root, val)
 
     def __insert_helper(self, node: TreeNode | None, val: int) -> TreeNode:
         """递归插入节点（辅助方法）"""
@@ -113,9 +109,9 @@ class AVLTree:
         # 2. 执行旋转操作，使该子树重新恢复平衡
         return self.__rotate(node)
 
-    def remove(self, val: int) -> None:
+    def remove(self, val: int):
         """删除节点"""
-        self.__root = self.__remove_helper(self.__root, val)
+        self.root = self.__remove_helper(self.root, val)
 
     def __remove_helper(self, node: TreeNode | None, val: int) -> TreeNode | None:
         """递归删除节点（辅助方法）"""
@@ -149,7 +145,7 @@ class AVLTree:
 
     def search(self, val: int) -> TreeNode | None:
         """查找节点"""
-        cur = self.__root
+        cur = self.root
         # 循环查找，越过叶节点后跳出
         while cur is not None:
             # 目标节点在 cur 的右子树中

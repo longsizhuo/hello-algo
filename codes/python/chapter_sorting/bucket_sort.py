@@ -5,7 +5,7 @@ Author: Krahets (krahets@163.com)
 """
 
 
-def bucket_sort(nums: list[float]) -> None:
+def bucket_sort(nums: list[float]):
     """桶排序"""
     # 初始化 k = n/2 个桶，预期向每个桶分配 2 个元素
     k = len(nums) // 2
@@ -16,7 +16,7 @@ def bucket_sort(nums: list[float]) -> None:
         i = int(num * k)
         # 将 num 添加进桶 i
         buckets[i].append(num)
-    # 2. 对各个桶执行排序5
+    # 2. 对各个桶执行排序
     for bucket in buckets:
         # 使用内置排序函数，也可以替换成其他排序算法
         bucket.sort()

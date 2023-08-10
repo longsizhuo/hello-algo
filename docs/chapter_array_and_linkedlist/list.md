@@ -35,9 +35,9 @@
     ```python title="list.py"
     # 初始化列表
     # 无初始值
-    list1: List[int] = []
+    list1: list[int] = []
     # 有初始值
-    list: List[int] = [1, 3, 2, 5, 4]
+    list: list[int] = [1, 3, 2, 5, 4]
     ```
 
 === "Go"
@@ -50,7 +50,7 @@
     list := []int{1, 3, 2, 5, 4}
     ```
 
-=== "JavaScript"
+=== "JS"
 
     ```javascript title="list.js"
     /* 初始化列表 */
@@ -60,7 +60,7 @@
     const list = [1, 3, 2, 5, 4];
     ```
 
-=== "TypeScript"
+=== "TS"
 
     ```typescript title="list.ts"
     /* 初始化列表 */
@@ -116,6 +116,16 @@
     List<int> list = [1, 3, 2, 5, 4];
     ```
 
+=== "Rust"
+
+    ```rust title="list.rs"
+    /* 初始化列表 */
+    // 无初始值
+    let list1: Vec<i32> = Vec::new();
+    // 有初始值
+    let list2: Vec<i32> = vec![1, 3, 2, 5, 4];
+    ```
+
 **访问与更新元素**。由于列表的底层数据结构是数组，因此可以在 $O(1)$ 时间内访问和更新元素，效率很高。
 
 === "Java"
@@ -158,7 +168,7 @@
     list[1] = 0     // 将索引 1 处的元素更新为 0
     ```
 
-=== "JavaScript"
+=== "JS"
 
     ```javascript title="list.js"
     /* 访问元素 */
@@ -168,7 +178,7 @@
     list[1] = 0;  // 将索引 1 处的元素更新为 0
     ```
 
-=== "TypeScript"
+=== "TS"
 
     ```typescript title="list.ts"
     /* 访问元素 */
@@ -222,6 +232,15 @@
 
     /* 更新元素 */
     list[1] = 0;  // 将索引 1 处的元素更新为 0
+    ```
+
+=== "Rust"
+
+    ```rust title="list.rs"
+    /* 访问元素 */
+    let num: i32 = list[1];    // 访问索引 1 处的元素
+    /* 更新元素 */
+    list[1] = 0;               // 将索引 1 处的元素更新为 0
     ```
 
 **在列表中添加、插入、删除元素**。相较于数组，列表可以自由地添加与删除元素。在列表尾部添加元素的时间复杂度为 $O(1)$ ，但插入和删除元素的效率仍与数组相同，时间复杂度为 $O(N)$ 。
@@ -306,7 +325,7 @@
     list = append(list[:3], list[4:]...) // 删除索引 3 处的元素
     ```
 
-=== "JavaScript"
+=== "JS"
 
     ```javascript title="list.js"
     /* 清空列表 */
@@ -326,7 +345,7 @@
     list.splice(3, 1);
     ```
 
-=== "TypeScript"
+=== "TS"
 
     ```typescript title="list.ts"
     /* 清空列表 */
@@ -432,6 +451,26 @@
     list.removeAt(3); // 删除索引 3 处的元素
     ```
 
+=== "Rust"
+
+    ```rust title="list.rs"
+    /* 清空列表 */
+    list.clear();
+
+    /* 尾部添加元素 */
+    list.push(1);
+    list.push(3);
+    list.push(2);
+    list.push(5);
+    list.push(4);
+
+    /* 中间插入元素 */
+    list.insert(3, 6);  // 在索引 3 处插入数字 6
+
+    /* 删除元素 */
+    list.remove(3);    // 删除索引 3 处的元素
+    ```
+
 **遍历列表**。与数组一样，列表可以根据索引遍历，也可以直接遍历各元素。
 
 === "Java"
@@ -496,7 +535,7 @@
     }
     ```
 
-=== "JavaScript"
+=== "JS"
 
     ```javascript title="list.js"
     /* 通过索引遍历列表 */
@@ -512,7 +551,7 @@
     }
     ```
 
-=== "TypeScript"
+=== "TS"
 
     ```typescript title="list.ts"
     /* 通过索引遍历列表 */
@@ -539,15 +578,13 @@
     ```csharp title="list.cs"
     /* 通过索引遍历列表 */
     int count = 0;
-    for (int i = 0; i < list.Count(); i++)
-    {
+    for (int i = 0; i < list.Count; i++) {
         count++;
     }
 
     /* 直接遍历列表元素 */
     count = 0;
-    foreach (int n in list)
-    {
+    foreach (int n in list) {
         count++;
     }
     ```
@@ -601,6 +638,22 @@
     }
     ```
 
+=== "Rust"
+
+    ```rust title="list.rs"
+    /* 通过索引遍历列表 */
+    let mut count = 0;
+    for (index, value) in list.iter().enumerate() {
+        count += 1;
+    }
+
+    /* 直接遍历列表元素 */
+    let mut count = 0;
+    for value in list.iter() {
+        count += 1;
+    }
+    ```
+
 **拼接两个列表**。给定一个新列表 `list1` ，我们可以将该列表拼接到原列表的尾部。
 
 === "Java"
@@ -624,7 +677,7 @@
 
     ```python title="list.py"
     # 拼接两个列表
-    list1: List[int] = [6, 8, 7, 10, 9]
+    list1: list[int] = [6, 8, 7, 10, 9]
     list += list1  # 将列表 list1 拼接到 list 之后
     ```
 
@@ -636,7 +689,7 @@
     list = append(list, list1...)  // 将列表 list1 拼接到 list 之后
     ```
 
-=== "JavaScript"
+=== "JS"
 
     ```javascript title="list.js"
     /* 拼接两个列表 */
@@ -644,7 +697,7 @@
     list.push(...list1);  // 将列表 list1 拼接到 list 之后
     ```
 
-=== "TypeScript"
+=== "TS"
 
     ```typescript title="list.ts"
     /* 拼接两个列表 */
@@ -692,6 +745,14 @@
     list.addAll(list1);  // 将列表 list1 拼接到 list 之后
     ```
 
+=== "Rust"
+
+    ```rust title="list.rs"
+    /* 拼接两个列表 */
+    let list1: Vec<i32> = vec![6, 8, 7, 10, 9];
+    list.extend(list1);
+    ```
+
 **排序列表**。排序也是常用的方法之一。完成列表排序后，我们便可以使用在数组类算法题中经常考察的「二分查找」和「双指针」算法。
 
 === "Java"
@@ -722,14 +783,14 @@
     sort.Ints(list)  // 排序后，列表元素从小到大排列
     ```
 
-=== "JavaScript"
+=== "JS"
 
     ```javascript title="list.js"
     /* 排序列表 */  
     list.sort((a, b) => a - b);  // 排序后，列表元素从小到大排列
     ```
 
-=== "TypeScript"
+=== "TS"
 
     ```typescript title="list.ts"
     /* 排序列表 */
@@ -770,6 +831,13 @@
     list.sort(); // 排序后，列表元素从小到大排列
     ```
 
+=== "Rust"
+
+    ```rust title="list.rs"
+    /* 排序列表 */
+    list.sort(); // 排序后，列表元素从小到大排列
+    ```
+
 ## 列表实现 *
 
 为了帮助加深对列表的理解，我们在此提供一个简易版列表实现。需要关注三个核心点：
@@ -804,13 +872,13 @@
     [class]{myList}-[func]{}
     ```
 
-=== "JavaScript"
+=== "JS"
 
     ```javascript title="my_list.js"
     [class]{MyList}-[func]{}
     ```
 
-=== "TypeScript"
+=== "TS"
 
     ```typescript title="my_list.ts"
     [class]{MyList}-[func]{}
@@ -843,5 +911,11 @@
 === "Dart"
 
     ```dart title="my_list.dart"
+    [class]{MyList}-[func]{}
+    ```
+
+=== "Rust"
+
+    ```rust title="my_list.rs"
     [class]{MyList}-[func]{}
     ```

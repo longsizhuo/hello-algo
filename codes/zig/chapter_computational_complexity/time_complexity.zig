@@ -54,7 +54,7 @@ fn quadratic(n: i32) i32 {
 fn bubbleSort(nums: []i32) i32 {
     var count: i32 = 0;  // 计数器 
     // 外循环：未排序区间为 [0, i]
-    var i: i32 = @intCast(i32, nums.len ) - 1;
+    var i: i32 = @as(i32, @intCast(nums.len)) - 1;
     while (i > 0) : (i -= 1) {
         var j: usize = 0;
         // 内循环：将未排序区间 [0, i] 中的最大元素交换至该区间的最右端 
@@ -76,7 +76,7 @@ fn exponential(n: i32) i32 {
     var count: i32 = 0;
     var bas: i32 = 1;
     var i: i32 = 0;
-    // cell 每轮一分为二，形成数列 1, 2, 4, 8, ..., 2^(n-1)
+    // 细胞每轮一分为二，形成数列 1, 2, 4, 8, ..., 2^(n-1)
     while (i < n) : (i += 1) {
         var j: i32 = 0;
         while (j < bas) : (j += 1) {
@@ -153,8 +153,8 @@ pub fn main() !void {
 
     count = quadratic(n);
     std.debug.print("平方阶的计算操作数量 = {}\n", .{count});
-    for (nums) |*num, i| {
-        num.* = n - @intCast(i32, i);  // [n,n-1,...,2,1]
+    for (&nums, 0..) |*num, i| {
+        num.* = n - @as(i32, @intCast(i));  // [n,n-1,...,2,1]
     }
     count = bubbleSort(&nums);
     std.debug.print("平方阶（冒泡排序）的计算操作数量 = {}\n", .{count});
@@ -174,5 +174,7 @@ pub fn main() !void {
 
     count = factorialRecur(n);
     std.debug.print("阶乘阶（递归实现）的计算操作数量 = {}\n", .{count});
+
+    _ = try std.io.getStdIn().reader().readByte();
 }
 

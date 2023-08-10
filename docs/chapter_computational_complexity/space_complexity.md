@@ -1,24 +1,24 @@
 # 空间复杂度
 
-「空间复杂度 Space Complexity」用于衡量算法使用内存空间随着数据量变大时的增长趋势。这个概念与时间复杂度非常类似。
+「空间复杂度 Space Complexity」用于衡量算法占用内存空间随着数据量变大时的增长趋势。这个概念与时间复杂度非常类似，只需将“运行时间”替换为“占用内存空间”。
 
 ## 算法相关空间
 
 算法运行过程中使用的内存空间主要包括以下几种：
 
-- 「输入空间」用于存储算法的输入数据；
-- 「暂存空间」用于存储算法运行过程中的变量、对象、函数上下文等数据；
-- 「输出空间」用于存储算法的输出数据；
+- **输入空间**：用于存储算法的输入数据。
+- **暂存空间**：用于存储算法运行过程中的变量、对象、函数上下文等数据。
+- **输出空间**：用于存储算法的输出数据。
 
-通常情况下，空间复杂度统计范围是「暂存空间」+「输出空间」。
+一般情况下，空间复杂度的统计范围是“暂存空间”加上“输出空间”。
 
 暂存空间可以进一步划分为三个部分：
 
-- 「暂存数据」用于保存算法运行过程中的各种常量、变量、对象等。
-- 「栈帧空间」用于保存调用函数的上下文数据。系统在每次调用函数时都会在栈顶部创建一个栈帧，函数返回后，栈帧空间会被释放。
-- 「指令空间」用于保存编译后的程序指令，在实际统计中通常忽略不计。
+- **暂存数据**：用于保存算法运行过程中的各种常量、变量、对象等。
+- **栈帧空间**：用于保存调用函数的上下文数据。系统在每次调用函数时都会在栈顶部创建一个栈帧，函数返回后，栈帧空间会被释放。
+- **指令空间**：用于保存编译后的程序指令，在实际统计中通常忽略不计。
 
-因此，在分析一段程序的空间复杂度时，我们一般统计 **暂存数据、输出数据、栈帧空间** 三部分。
+因此在分析一段程序的空间复杂度时，**我们通常统计暂存数据、输出数据、栈帧空间三部分**。
 
 ![算法使用的相关空间](space_complexity.assets/space_types.png)
 
@@ -123,7 +123,7 @@
     }
     ```
 
-=== "JavaScript"
+=== "JS"
 
     ```javascript title=""
     /* 类 */
@@ -151,7 +151,7 @@
     }
     ```
 
-=== "TypeScript"
+=== "TS"
 
     ```typescript title=""
     /* 类 */
@@ -200,22 +200,19 @@
 
     ```csharp title=""
     /* 类 */
-    class Node
-    {
+    class Node {
         int val;
         Node next;
         Node(int x) { val = x; }
     }
 
     /* 函数 */
-    int function()
-    {
+    int function() {
         // do something...
         return 0;
     }
 
-    int algorithm(int n)          // 输入数据
-    {
+    int algorithm(int n) {        // 输入数据
         const int a = 0;          // 暂存数据（常量）
         int b = 0;                // 暂存数据（变量）
         Node node = new Node(0);  // 暂存数据（对象）
@@ -283,14 +280,22 @@
     }
     ```
 
+=== "Rust"
+
+    ```rust title=""
+
+    ```
+
 ## 推算方法
 
-空间复杂度的推算方法与时间复杂度大致相同，只是将统计对象从“计算操作数量”转为“使用空间大小”。与时间复杂度不同的是，**我们通常只关注「最差空间复杂度」**，这是因为内存空间是一项硬性要求，我们必须确保在所有输入数据下都有足够的内存空间预留。
+空间复杂度的推算方法与时间复杂度大致相同，只需将统计对象从“计算操作数量”转为“使用空间大小”。
 
-**最差空间复杂度中的“最差”有两层含义**，分别是输入数据的最差分布和算法运行过程中的最差时间点。
+而与时间复杂度不同的是，**我们通常只关注「最差空间复杂度」**。这是因为内存空间是一项硬性要求，我们必须确保在所有输入数据下都有足够的内存空间预留。
 
-- **以最差输入数据为准**。当 $n < 10$ 时，空间复杂度为 $O(1)$ ；但当 $n > 10$ 时，初始化的数组 `nums` 占用 $O(n)$ 空间；因此最差空间复杂度为 $O(n)$ ；
-- **以算法运行过程中的峰值内存为准**。例如，程序在执行最后一行之前，占用 $O(1)$ 空间；当初始化数组 `nums` 时，程序占用 $O(n)$ 空间；因此最差空间复杂度为 $O(n)$ ；
+观察以下代码，最差空间复杂度中的“最差”有两层含义。
+
+1. **以最差输入数据为准**：当 $n < 10$ 时，空间复杂度为 $O(1)$ ；但当 $n > 10$ 时，初始化的数组 `nums` 占用 $O(n)$ 空间；因此最差空间复杂度为 $O(n)$ 。
+2. **以算法运行中的峰值内存为准**：例如，程序在执行最后一行之前，占用 $O(1)$ 空间；当初始化数组 `nums` 时，程序占用 $O(n)$ 空间；因此最差空间复杂度为 $O(n)$ 。
 
 === "Java"
 
@@ -317,8 +322,8 @@
 === "Python"
 
     ```python title=""
-    def algorithm(n: int) -> None:
-        a = 0                     # O(1)
+    def algorithm(n: int):
+        a = 0               # O(1)
         b = [0] * 10000     # O(1)
         if n > 10:
             nums = [0] * n  # O(n)
@@ -338,7 +343,7 @@
     }
     ```
 
-=== "JavaScript"
+=== "JS"
 
     ```javascript title=""
     function algorithm(n) {
@@ -350,7 +355,7 @@
     }
     ```
 
-=== "TypeScript"
+=== "TS"
 
     ```typescript title=""
     function algorithm(n: number): void {
@@ -369,19 +374,17 @@
         int a = 0;               // O(1)
         int b[10000];            // O(1)
         if (n > 10)
-            vector<int> nums(n); // O(n)
+            int nums[n] = {0};   // O(n)
     }
     ```
 
 === "C#"
 
     ```csharp title=""
-    void algorithm(int n)
-    {
+    void algorithm(int n) {
         int a = 0;                   // O(1)
         int[] b = new int[10000];    // O(1)
-        if (n > 10)
-        {
+        if (n > 10) {
             int[] nums = new int[n]; // O(n)
         }
     }
@@ -417,7 +420,16 @@
     }
     ```
 
-**在递归函数中，需要注意统计栈帧空间**。例如，函数 `loop()` 在循环中调用了 $n$ 次 `function()` ，每轮中的 `function()` 都返回并释放了栈帧空间，因此空间复杂度仍为 $O(1)$ 。而递归函数 `recur()` 在运行过程中会同时存在 $n$ 个未返回的 `recur()` ，从而占用 $O(n)$ 的栈帧空间。
+=== "Rust"
+
+    ```rust title=""
+
+    ```
+
+**在递归函数中，需要注意统计栈帧空间**。例如以下代码：
+
+- 函数 `loop()` 在循环中调用了 $n$ 次 `function()` ，每轮中的 `function()` 都返回并释放了栈帧空间，因此空间复杂度仍为 $O(1)$ 。
+- 递归函数 `recur()` 在运行过程中会同时存在 $n$ 个未返回的 `recur()` ，从而占用 $O(n)$ 的栈帧空间。
 
 === "Java"
 
@@ -466,7 +478,7 @@
         # do something
         return 0
 
-    def loop(n: int) -> None:
+    def loop(n: int):
         """循环 O(1)"""
         for _ in range(n):
             function()
@@ -501,7 +513,7 @@
     }
     ```
 
-=== "JavaScript"
+=== "JS"
 
     ```javascript title=""
     function constFunc() {
@@ -521,7 +533,7 @@
     }
     ```
 
-=== "TypeScript"
+=== "TS"
 
     ```typescript title=""
     function constFunc(): number {
@@ -564,22 +576,18 @@
 === "C#"
 
     ```csharp title=""
-    int function()
-    {
+    int function() {
         // do something
         return 0;
     }
     /* 循环 O(1) */
-    void loop(int n)
-    {
-        for (int i = 0; i < n; i++)
-        {
+    void loop(int n) {
+        for (int i = 0; i < n; i++) {
             function();
         }
     }
     /* 递归 O(n) */
-    int recur(int n)
-    {
+    int recur(int n) {
         if (n == 1) return 1;
         return recur(n - 1);
     }
@@ -636,9 +644,15 @@
     }
     ```
 
+=== "Rust"
+
+    ```rust title=""
+
+    ```
+
 ## 常见类型
 
-设输入数据大小为 $n$ ，常见的空间复杂度类型有（从低到高排列）
+设输入数据大小为 $n$ ，常见的空间复杂度类型有（从低到高排列）：
 
 $$
 \begin{aligned}
@@ -651,7 +665,7 @@ $$
 
 !!! tip
 
-    部分示例代码需要一些前置知识，包括数组、链表、二叉树、递归算法等。如果遇到看不懂的地方无需担心，可以在学习完后面章节后再来复习，现阶段我们先专注于理解空间复杂度的含义和推算方法。
+    部分示例代码需要一些前置知识，包括数组、链表、二叉树、递归算法等。如果你遇到看不懂的地方，可以在学习完后面章节后再来复习。
 
 ### 常数阶 $O(1)$
 
@@ -662,66 +676,96 @@ $$
 === "Java"
 
     ```java title="space_complexity.java"
+    [class]{space_complexity}-[func]{function}
+
     [class]{space_complexity}-[func]{constant}
     ```
 
 === "C++"
 
     ```cpp title="space_complexity.cpp"
+    [class]{}-[func]{func}
+
     [class]{}-[func]{constant}
     ```
 
 === "Python"
 
     ```python title="space_complexity.py"
+    [class]{}-[func]{function}
+
     [class]{}-[func]{constant}
     ```
 
 === "Go"
 
     ```go title="space_complexity.go"
+    [class]{}-[func]{function}
+
     [class]{}-[func]{spaceConstant}
     ```
 
-=== "JavaScript"
+=== "JS"
 
     ```javascript title="space_complexity.js"
+    [class]{}-[func]{constFunc}
+
     [class]{}-[func]{constant}
     ```
 
-=== "TypeScript"
+=== "TS"
 
     ```typescript title="space_complexity.ts"
+    [class]{}-[func]{constFunc}
+
     [class]{}-[func]{constant}
     ```
 
 === "C"
 
     ```c title="space_complexity.c"
+    [class]{}-[func]{func}
+
     [class]{}-[func]{constant}
     ```
 
 === "C#"
 
     ```csharp title="space_complexity.cs"
+    [class]{space_complexity}-[func]{function}
+
     [class]{space_complexity}-[func]{constant}
     ```
 
 === "Swift"
 
     ```swift title="space_complexity.swift"
+    [class]{}-[func]{function}
+
     [class]{}-[func]{constant}
     ```
 
 === "Zig"
 
     ```zig title="space_complexity.zig"
+    [class]{}-[func]{function}
+
     [class]{}-[func]{constant}
     ```
 
 === "Dart"
 
     ```dart title="space_complexity.dart"
+    [class]{}-[func]{function}
+
+    [class]{}-[func]{constant}
+    ```
+
+=== "Rust"
+
+    ```rust title="space_complexity.rs"
+    [class]{}-[func]{function}
+
     [class]{}-[func]{constant}
     ```
 
@@ -753,13 +797,13 @@ $$
     [class]{}-[func]{spaceLinear}
     ```
 
-=== "JavaScript"
+=== "JS"
 
     ```javascript title="space_complexity.js"
     [class]{}-[func]{linear}
     ```
 
-=== "TypeScript"
+=== "TS"
 
     ```typescript title="space_complexity.ts"
     [class]{}-[func]{linear}
@@ -797,6 +841,12 @@ $$
     [class]{}-[func]{linear}
     ```
 
+=== "Rust"
+
+    ```rust title="space_complexity.rs"
+    [class]{}-[func]{linear}
+    ```
+
 以下递归函数会同时存在 $n$ 个未返回的 `algorithm()` 函数，使用 $O(n)$ 大小的栈帧空间。
 
 === "Java"
@@ -823,13 +873,13 @@ $$
     [class]{}-[func]{spaceLinearRecur}
     ```
 
-=== "JavaScript"
+=== "JS"
 
     ```javascript title="space_complexity.js"
     [class]{}-[func]{linearRecur}
     ```
 
-=== "TypeScript"
+=== "TS"
 
     ```typescript title="space_complexity.ts"
     [class]{}-[func]{linearRecur}
@@ -863,6 +913,12 @@ $$
 
     ```dart title="space_complexity.dart"
     [class]{}-[func]{linearRecur}
+    ```
+
+=== "Rust"
+
+    ```rust title="space_complexity.rs"
+    [class]{}-[func]{linear_recur}
     ```
 
 ![递归函数产生的线性阶空间复杂度](space_complexity.assets/space_complexity_recursive_linear.png)
@@ -895,13 +951,13 @@ $$
     [class]{}-[func]{spaceQuadratic}
     ```
 
-=== "JavaScript"
+=== "JS"
 
     ```javascript title="space_complexity.js"
     [class]{}-[func]{quadratic}
     ```
 
-=== "TypeScript"
+=== "TS"
 
     ```typescript title="space_complexity.ts"
     [class]{}-[func]{quadratic}
@@ -937,6 +993,12 @@ $$
     [class]{}-[func]{quadratic}
     ```
 
+=== "Rust"
+
+    ```rust title="space_complexity.rs"
+    [class]{}-[func]{quadratic}
+    ```
+
 在以下递归函数中，同时存在 $n$ 个未返回的 `algorithm()` ，并且每个函数中都初始化了一个数组，长度分别为 $n, n-1, n-2, ..., 2, 1$ ，平均长度为 $\frac{n}{2}$ ，因此总体占用 $O(n^2)$ 空间。
 
 === "Java"
@@ -963,13 +1025,13 @@ $$
     [class]{}-[func]{spaceQuadraticRecur}
     ```
 
-=== "JavaScript"
+=== "JS"
 
     ```javascript title="space_complexity.js"
     [class]{}-[func]{quadraticRecur}
     ```
 
-=== "TypeScript"
+=== "TS"
 
     ```typescript title="space_complexity.ts"
     [class]{}-[func]{quadraticRecur}
@@ -1003,6 +1065,12 @@ $$
 
     ```dart title="space_complexity.dart"
     [class]{}-[func]{quadraticRecur}
+    ```
+
+=== "Rust"
+
+    ```rust title="space_complexity.rs"
+    [class]{}-[func]{quadratic_recur}
     ```
 
 ![递归函数产生的平方阶空间复杂度](space_complexity.assets/space_complexity_recursive_quadratic.png)
@@ -1035,13 +1103,13 @@ $$
     [class]{}-[func]{buildTree}
     ```
 
-=== "JavaScript"
+=== "JS"
 
     ```javascript title="space_complexity.js"
     [class]{}-[func]{buildTree}
     ```
 
-=== "TypeScript"
+=== "TS"
 
     ```typescript title="space_complexity.ts"
     [class]{}-[func]{buildTree}
@@ -1075,6 +1143,12 @@ $$
 
     ```dart title="space_complexity.dart"
     [class]{}-[func]{buildTree}
+    ```
+
+=== "Rust"
+
+    ```rust title="space_complexity.rs"
+    [class]{}-[func]{build_tree}
     ```
 
 ![满二叉树产生的指数阶空间复杂度](space_complexity.assets/space_complexity_exponential.png)
