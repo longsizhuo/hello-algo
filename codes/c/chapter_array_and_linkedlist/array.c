@@ -6,7 +6,7 @@
 
 #include "../utils/common.h"
 
-/* 随机返回一个数组元素 */
+/* 随机访问元素 */
 int randomAccess(int *nums, int size) {
     // 在区间 [0, size) 中随机抽取一个数字
     int randomIndex = rand() % size;
@@ -37,11 +37,11 @@ void insert(int *nums, int size, int num, int index) {
     for (int i = size - 1; i > index; i--) {
         nums[i] = nums[i - 1];
     }
-    // 将 num 赋给 index 处元素
+    // 将 num 赋给 index 处的元素
     nums[index] = num;
 }
 
-/* 删除索引 index 处元素 */
+/* 删除索引 index 处的元素 */
 // 注意：stdio.h 占用了 remove 关键词
 void removeItem(int *nums, int size, int index) {
     // 把索引 index 之后的所有元素向前移动一位
@@ -55,7 +55,7 @@ void traverse(int *nums, int size) {
     int count = 0;
     // 通过索引遍历数组
     for (int i = 0; i < size; i++) {
-        count++;
+        count += nums[i];
     }
 }
 
@@ -76,7 +76,7 @@ int main() {
     printf("数组 arr = ");
     printArray(arr, size);
 
-    int nums[5] = {1, 3, 2, 5, 4};
+    int nums[] = {1, 3, 2, 5, 4};
     printf("数组 nums = ");
     printArray(nums, size);
 
@@ -108,5 +108,7 @@ int main() {
     int index = find(res, size, 3);
     printf("在 res 中查找元素 3 ，得到索引 = %d\n", index);
 
+    /* 释放内存 */
+    free(res);
     return 0;
 }

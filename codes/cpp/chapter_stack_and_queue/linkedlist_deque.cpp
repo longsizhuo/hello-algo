@@ -50,7 +50,7 @@ class LinkedListDeque {
     /* 入队操作 */
     void push(int num, bool isFront) {
         DoublyListNode *node = new DoublyListNode(num);
-        // 若链表为空，则令 front, rear 都指向 node
+        // 若链表为空，则令 front 和 rear 都指向 node
         if (isEmpty())
             front = rear = node;
         // 队首入队操作
@@ -81,9 +81,8 @@ class LinkedListDeque {
 
     /* 出队操作 */
     int pop(bool isFront) {
-        // 若队列为空，直接返回 -1
         if (isEmpty())
-            return -1;
+            throw out_of_range("队列为空");
         int val;
         // 队首出队操作
         if (isFront) {
@@ -124,12 +123,16 @@ class LinkedListDeque {
 
     /* 访问队首元素 */
     int peekFirst() {
-        return isEmpty() ? -1 : front->val;
+        if (isEmpty())
+            throw out_of_range("双向队列为空");
+        return front->val;
     }
 
     /* 访问队尾元素 */
     int peekLast() {
-        return isEmpty() ? -1 : rear->val;
+        if (isEmpty())
+            throw out_of_range("双向队列为空");
+        return rear->val;
     }
 
     /* 返回数组用于打印 */

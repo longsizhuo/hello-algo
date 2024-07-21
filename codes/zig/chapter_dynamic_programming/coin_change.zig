@@ -1,6 +1,6 @@
 // File: coin_change.zig
 // Created Time: 2023-07-15
-// Author: sjinzh (sjinzh@gmail.com)
+// Author: codingonion (coderonion@gmail.com)
 
 const std = @import("std");
 
@@ -14,11 +14,11 @@ fn coinChangeDP(comptime coins: []i32, comptime amt: usize) i32 {
     for (1..amt + 1) |a| {
         dp[0][a] = max;
     }
-    // 状态转移：其余行列
+    // 状态转移：其余行和列
     for (1..n + 1) |i| {
         for (1..amt + 1) |a| {
             if (coins[i - 1] > @as(i32, @intCast(a))) {
-                // 若超过背包容量，则不选硬币 i
+                // 若超过目标金额，则不选硬币 i
                 dp[i][a] = dp[i - 1][a];
             } else {
                 // 不选和选硬币 i 这两种方案的较小值
@@ -33,7 +33,7 @@ fn coinChangeDP(comptime coins: []i32, comptime amt: usize) i32 {
     }
 }
 
-// 零钱兑换：状态压缩后的动态规划
+// 零钱兑换：空间优化后的动态规划
 fn coinChangeDPComp(comptime coins: []i32, comptime amt: usize) i32 {
     comptime var n = coins.len;
     comptime var max = amt + 1;
@@ -45,7 +45,7 @@ fn coinChangeDPComp(comptime coins: []i32, comptime amt: usize) i32 {
     for (1..n + 1) |i| {
         for (1..amt + 1) |a| {
             if (coins[i - 1] > @as(i32, @intCast(a))) {
-                // 若超过背包容量，则不选硬币 i
+                // 若超过目标金额，则不选硬币 i
                 dp[a] = dp[a];
             } else {
                 // 不选和选硬币 i 这两种方案的较小值
@@ -69,7 +69,7 @@ pub fn main() !void {
     var res = coinChangeDP(&coins, amt);
     std.debug.print("凑到目标金额所需的最少硬币数量为 {}\n", .{res});
 
-    // 状态压缩后的动态规划
+    // 空间优化后的动态规划
     res = coinChangeDPComp(&coins, amt);
     std.debug.print("凑到目标金额所需的最少硬币数量为 {}\n", .{res});
 

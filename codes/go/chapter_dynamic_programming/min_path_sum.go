@@ -17,8 +17,8 @@ func minPathSumDFS(grid [][]int, i, j int) int {
 		return math.MaxInt
 	}
 	// 计算从左上角到 (i-1, j) 和 (i, j-1) 的最小路径代价
-	left := minPathSumDFS(grid, i-1, j)
-	up := minPathSumDFS(grid, i, j-1)
+	up := minPathSumDFS(grid, i-1, j)
+	left := minPathSumDFS(grid, i, j-1)
 	// 返回从左上角到 (i, j) 的最小路径代价
 	return int(math.Min(float64(left), float64(up))) + grid[i][j]
 }
@@ -38,8 +38,8 @@ func minPathSumDFSMem(grid, mem [][]int, i, j int) int {
 		return mem[i][j]
 	}
 	// 左边和上边单元格的最小路径代价
-	left := minPathSumDFSMem(grid, mem, i-1, j)
-	up := minPathSumDFSMem(grid, mem, i, j-1)
+	up := minPathSumDFSMem(grid, mem, i-1, j)
+	left := minPathSumDFSMem(grid, mem, i, j-1)
 	// 记录并返回左上角到 (i, j) 的最小路径代价
 	mem[i][j] = int(math.Min(float64(left), float64(up))) + grid[i][j]
 	return mem[i][j]
@@ -62,7 +62,7 @@ func minPathSumDP(grid [][]int) int {
 	for i := 1; i < n; i++ {
 		dp[i][0] = dp[i-1][0] + grid[i][0]
 	}
-	// 状态转移：其余行列
+	// 状态转移：其余行和列
 	for i := 1; i < n; i++ {
 		for j := 1; j < m; j++ {
 			dp[i][j] = int(math.Min(float64(dp[i][j-1]), float64(dp[i-1][j]))) + grid[i][j]
@@ -71,7 +71,7 @@ func minPathSumDP(grid [][]int) int {
 	return dp[n-1][m-1]
 }
 
-/* 最小路径和：状态压缩后的动态规划 */
+/* 最小路径和：空间优化后的动态规划 */
 func minPathSumDPComp(grid [][]int) int {
 	n, m := len(grid), len(grid[0])
 	// 初始化 dp 表
@@ -81,7 +81,7 @@ func minPathSumDPComp(grid [][]int) int {
 	for j := 1; j < m; j++ {
 		dp[j] = dp[j-1] + grid[0][j]
 	}
-	// 状态转移：其余行列
+	// 状态转移：其余行和列
 	for i := 1; i < n; i++ {
 		// 状态转移：首列
 		dp[0] = dp[0] + grid[i][0]

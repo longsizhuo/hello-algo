@@ -9,66 +9,66 @@
 #define MAX_SIZE 5000
 
 /* 基于数组实现的栈 */
-struct arrayStack {
+typedef struct {
     int *data;
     int size;
-};
-
-typedef struct arrayStack arrayStack;
+} ArrayStack;
 
 /* 构造函数 */
-arrayStack *newArrayStack() {
-    arrayStack *s = malloc(sizeof(arrayStack));
+ArrayStack *newArrayStack() {
+    ArrayStack *stack = malloc(sizeof(ArrayStack));
     // 初始化一个大容量，避免扩容
-    s->data = malloc(sizeof(int) * MAX_SIZE);
-    s->size = 0;
-    return s;
+    stack->data = malloc(sizeof(int) * MAX_SIZE);
+    stack->size = 0;
+    return stack;
+}
+
+/* 析构函数 */
+void delArrayStack(ArrayStack *stack) {
+    free(stack->data);
+    free(stack);
 }
 
 /* 获取栈的长度 */
-int size(arrayStack *s) {
-    return s->size;
+int size(ArrayStack *stack) {
+    return stack->size;
 }
 
 /* 判断栈是否为空 */
-bool isEmpty(arrayStack *s) {
-    return s->size == 0;
+bool isEmpty(ArrayStack *stack) {
+    return stack->size == 0;
 }
 
 /* 入栈 */
-void push(arrayStack *s, int num) {
-    if (s->size == MAX_SIZE) {
-        printf("stack is full.\n");
+void push(ArrayStack *stack, int num) {
+    if (stack->size == MAX_SIZE) {
+        printf("栈已满\n");
         return;
     }
-    s->data[s->size] = num;
-    s->size++;
+    stack->data[stack->size] = num;
+    stack->size++;
 }
 
 /* 访问栈顶元素 */
-int peek(arrayStack *s) {
-    if (s->size == 0) {
-        printf("stack is empty.\n");
+int peek(ArrayStack *stack) {
+    if (stack->size == 0) {
+        printf("栈为空\n");
         return INT_MAX;
     }
-    return s->data[s->size - 1];
+    return stack->data[stack->size - 1];
 }
 
 /* 出栈 */
-int pop(arrayStack *s) {
-    if (s->size == 0) {
-        printf("stack is empty.\n");
-        return INT_MAX;
-    }
-    int val = peek(s);
-    s->size--;
+int pop(ArrayStack *stack) {
+    int val = peek(stack);
+    stack->size--;
     return val;
 }
 
 /* Driver Code */
 int main() {
     /* 初始化栈 */
-    arrayStack *stack = newArrayStack();
+    ArrayStack *stack = newArrayStack();
 
     /* 元素入栈 */
     push(stack, 1);
@@ -85,7 +85,7 @@ int main() {
 
     /* 元素出栈 */
     val = pop(stack);
-    printf("出栈元素 pop = %d，出栈后 stack = ", val);
+    printf("出栈元素 pop = %d ，出栈后 stack = ", val);
     printArray(stack->data, stack->size);
 
     /* 获取栈的长度 */
@@ -94,11 +94,10 @@ int main() {
 
     /* 判断是否为空 */
     bool empty = isEmpty(stack);
-    printf("栈是否为空 = %s\n", empty ? "true" : "false");
+    printf("栈是否为空 = %stack\n", empty ? "true" : "false");
 
     // 释放内存
-    free(stack->data);
-    free(stack);
+    delArrayStack(stack);
 
     return 0;
 }

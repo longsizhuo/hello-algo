@@ -4,11 +4,11 @@
 * Author: hpstory (hpstory1024@163.com)
 */
 
-namespace hello_algo.chapter_hashing; 
+namespace hello_algo.chapter_hashing;
 
 public class simple_hash {
     /* 加法哈希 */
-    public static int addHash(string key) {
+    int AddHash(string key) {
         long hash = 0;
         const int MODULUS = 1000000007;
         foreach (char c in key) {
@@ -18,7 +18,7 @@ public class simple_hash {
     }
 
     /* 乘法哈希 */
-    public static int mulHash(string key) {
+    int MulHash(string key) {
         long hash = 0;
         const int MODULUS = 1000000007;
         foreach (char c in key) {
@@ -28,7 +28,7 @@ public class simple_hash {
     }
 
     /* 异或哈希 */
-    public static int xorHash(string key) {
+    int XorHash(string key) {
         int hash = 0;
         const int MODULUS = 1000000007;
         foreach (char c in key) {
@@ -38,7 +38,7 @@ public class simple_hash {
     }
 
     /* 旋转哈希 */
-    public static int rotHash(string key) {
+    int RotHash(string key) {
         long hash = 0;
         const int MODULUS = 1000000007;
         foreach (char c in key) {
@@ -51,16 +51,16 @@ public class simple_hash {
     public void Test() {
         string key = "Hello 算法";
 
-        int hash = addHash(key);
+        int hash = AddHash(key);
         Console.WriteLine("加法哈希值为 " + hash);
 
-        hash = mulHash(key);
+        hash = MulHash(key);
         Console.WriteLine("乘法哈希值为 " + hash);
 
-        hash = xorHash(key);
+        hash = XorHash(key);
         Console.WriteLine("异或哈希值为 " + hash);
 
-        hash = rotHash(key);
+        hash = RotHash(key);
         Console.WriteLine("旋转哈希值为 " + hash);
     }
 }

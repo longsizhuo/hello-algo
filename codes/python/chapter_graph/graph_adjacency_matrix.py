@@ -4,23 +4,21 @@ Created Time: 2023-02-23
 Author: Krahets (krahets@163.com)
 """
 
-import sys, os.path as osp
+import sys
+from pathlib import Path
 
-sys.path.append(osp.dirname(osp.dirname(osp.abspath(__file__))))
-from modules import *
+sys.path.append(str(Path(__file__).parent.parent))
+from modules import Vertex, print_matrix
 
 
 class GraphAdjMat:
     """基于邻接矩阵实现的无向图类"""
 
-    # 顶点列表，元素代表“顶点值”，索引代表“顶点索引”
-    vertices: list[int] = []
-    # 邻接矩阵，行列索引对应“顶点索引”
-    adj_mat: list[list[int]] = []
-
     def __init__(self, vertices: list[int], edges: list[list[int]]):
         """构造方法"""
+        # 顶点列表，元素代表“顶点值”，索引代表“顶点索引”
         self.vertices: list[int] = []
+        # 邻接矩阵，行列索引对应“顶点索引”
         self.adj_mat: list[list[int]] = []
         # 添加顶点
         for val in vertices:
@@ -64,7 +62,7 @@ class GraphAdjMat:
         # 索引越界与相等处理
         if i < 0 or j < 0 or i >= self.size() or j >= self.size() or i == j:
             raise IndexError()
-        # 在无向图中，邻接矩阵沿主对角线对称，即满足 (i, j) == (j, i)
+        # 在无向图中，邻接矩阵关于主对角线对称，即满足 (i, j) == (j, i)
         self.adj_mat[i][j] = 1
         self.adj_mat[j][i] = 1
 

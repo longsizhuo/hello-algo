@@ -14,7 +14,7 @@ def move(src: list[int], tar: list[int]):
 
 
 def dfs(i: int, src: list[int], buf: list[int], tar: list[int]):
-    """求解汉诺塔：问题 f(i)"""
+    """求解汉诺塔问题 f(i)"""
     # 若 src 只剩下一个圆盘，则直接将其移到 tar
     if i == 1:
         move(src, tar)
@@ -27,8 +27,8 @@ def dfs(i: int, src: list[int], buf: list[int], tar: list[int]):
     dfs(i - 1, buf, src, tar)
 
 
-def hanota(A: list[int], B: list[int], C: list[int]):
-    """求解汉诺塔"""
+def solve_hanota(A: list[int], B: list[int], C: list[int]):
+    """求解汉诺塔问题"""
     n = len(A)
     # 将 A 顶部 n 个圆盘借助 B 移到 C
     dfs(n, A, B, C)
@@ -45,7 +45,7 @@ if __name__ == "__main__":
     print(f"B = {B}")
     print(f"C = {C}")
 
-    hanota(A, B, C)
+    solve_hanota(A, B, C)
 
     print("圆盘移动完成后：")
     print(f"A = {A}")

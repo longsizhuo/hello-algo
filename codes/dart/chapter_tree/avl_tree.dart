@@ -18,6 +18,7 @@ class AVLTree {
 
   /* 获取节点高度 */
   int height(TreeNode? node) {
+    // 空节点高度为 -1 ，叶节点高度为 0
     return node == null ? -1 : node.height;
   }
 
@@ -89,7 +90,7 @@ class AVLTree {
         return leftRotate(node);
       }
     }
-    // 平衡树，无需旋转，直接返回
+    // 平衡树，无须旋转，直接返回
     return node;
   }
 
@@ -101,7 +102,7 @@ class AVLTree {
   /* 递归插入节点（辅助方法） */
   TreeNode? insertHelper(TreeNode? node, int val) {
     if (node == null) return TreeNode(val);
-    /* 1. 查找插入位置，并插入节点 */
+    /* 1. 查找插入位置并插入节点 */
     if (val < node.val)
       node.left = insertHelper(node.left, val);
     else if (val > node.val)
@@ -123,7 +124,7 @@ class AVLTree {
   /* 递归删除节点（辅助方法） */
   TreeNode? removeHelper(TreeNode? node, int val) {
     if (node == null) return null;
-    /* 1. 查找节点，并删除之 */
+    /* 1. 查找节点并删除 */
     if (val < node.val)
       node.left = removeHelper(node.left, val);
     else if (val > node.val)
@@ -213,5 +214,5 @@ void main() {
 
   /* 查询节点 */
   TreeNode? node = avlTree.search(7);
-  print("\n查找到的节点对象为 $node，节点值 = ${node!.val}");
+  print("\n查找到的节点对象为 $node ，节点值 = ${node!.val}");
 }

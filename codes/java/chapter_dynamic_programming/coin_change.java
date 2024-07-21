@@ -19,11 +19,11 @@ public class coin_change {
         for (int a = 1; a <= amt; a++) {
             dp[0][a] = MAX;
         }
-        // 状态转移：其余行列
+        // 状态转移：其余行和列
         for (int i = 1; i <= n; i++) {
             for (int a = 1; a <= amt; a++) {
                 if (coins[i - 1] > a) {
-                    // 若超过背包容量，则不选硬币 i
+                    // 若超过目标金额，则不选硬币 i
                     dp[i][a] = dp[i - 1][a];
                 } else {
                     // 不选和选硬币 i 这两种方案的较小值
@@ -34,7 +34,7 @@ public class coin_change {
         return dp[n][amt] != MAX ? dp[n][amt] : -1;
     }
 
-    /* 零钱兑换：状态压缩后的动态规划 */
+    /* 零钱兑换：空间优化后的动态规划 */
     static int coinChangeDPComp(int[] coins, int amt) {
         int n = coins.length;
         int MAX = amt + 1;
@@ -46,7 +46,7 @@ public class coin_change {
         for (int i = 1; i <= n; i++) {
             for (int a = 1; a <= amt; a++) {
                 if (coins[i - 1] > a) {
-                    // 若超过背包容量，则不选硬币 i
+                    // 若超过目标金额，则不选硬币 i
                     dp[a] = dp[a];
                 } else {
                     // 不选和选硬币 i 这两种方案的较小值
@@ -65,7 +65,7 @@ public class coin_change {
         int res = coinChangeDP(coins, amt);
         System.out.println("凑到目标金额所需的最少硬币数量为 " + res);
 
-        // 状态压缩后的动态规划
+        // 空间优化后的动态规划
         res = coinChangeDPComp(coins, amt);
         System.out.println("凑到目标金额所需的最少硬币数量为 " + res);
     }

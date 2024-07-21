@@ -20,7 +20,7 @@ public class coin_change_ii {
         for (int i = 1; i <= n; i++) {
             for (int a = 1; a <= amt; a++) {
                 if (coins[i - 1] > a) {
-                    // 若超过背包容量，则不选硬币 i
+                    // 若超过目标金额，则不选硬币 i
                     dp[i][a] = dp[i - 1][a];
                 } else {
                     // 不选和选硬币 i 这两种方案之和
@@ -31,7 +31,7 @@ public class coin_change_ii {
         return dp[n][amt];
     }
 
-    /* 零钱兑换 II：状态压缩后的动态规划 */
+    /* 零钱兑换 II：空间优化后的动态规划 */
     static int coinChangeIIDPComp(int[] coins, int amt) {
         int n = coins.length;
         // 初始化 dp 表
@@ -41,7 +41,7 @@ public class coin_change_ii {
         for (int i = 1; i <= n; i++) {
             for (int a = 1; a <= amt; a++) {
                 if (coins[i - 1] > a) {
-                    // 若超过背包容量，则不选硬币 i
+                    // 若超过目标金额，则不选硬币 i
                     dp[a] = dp[a];
                 } else {
                     // 不选和选硬币 i 这两种方案之和
@@ -60,7 +60,7 @@ public class coin_change_ii {
         int res = coinChangeIIDP(coins, amt);
         System.out.println("凑出目标金额的硬币组合数量为 " + res);
 
-        // 状态压缩后的动态规划
+        // 空间优化后的动态规划
         res = coinChangeIIDPComp(coins, amt);
         System.out.println("凑出目标金额的硬币组合数量为 " + res);
     }

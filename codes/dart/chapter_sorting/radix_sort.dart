@@ -4,15 +4,15 @@
  * Author: what-is-me (whatisme@outlook.jp)
  */
 
-/* 获取元素 num 的第 k 位，其中 exp = 10^(k-1) */
-int digit(int num, int exp) {
+/* 获取元素 _num 的第 k 位，其中 exp = 10^(k-1) */
+int digit(int _num, int exp) {
   // 传入 exp 而非 k 可以避免在此重复执行昂贵的次方计算
-  return (num ~/ exp) % 10;
+  return (_num ~/ exp) % 10;
 }
 
 /* 计数排序（根据 nums 第 k 位排序） */
 void countingSortDigit(List<int> nums, int exp) {
-  // 十进制的位范围为 0~9 ，因此需要长度为 10 的桶
+  // 十进制的位范围为 0~9 ，因此需要长度为 10 的桶数组
   List<int> counter = List<int>.filled(10, 0);
   int n = nums.length;
   // 统计 0~9 各数字的出现次数
@@ -40,8 +40,8 @@ void countingSortDigit(List<int> nums, int exp) {
 void radixSort(List<int> nums) {
   // 获取数组的最大元素，用于判断最大位数
   // dart 中 int 的长度是 64 位的
-  int m = -1 << 63; 
-  for (int num in nums) if (num > m) m = num;
+  int m = -1 << 63;
+  for (int _num in nums) if (_num > m) m = _num;
   // 按照从低位到高位的顺序遍历
   for (int exp = 1; exp <= m; exp *= 10)
     // 对数组元素的第 k 位执行计数排序
@@ -54,8 +54,18 @@ void radixSort(List<int> nums) {
 /* Driver Code */
 void main() {
   // 基数排序
-  List<int> nums = [10546151, 35663510, 42865989, 34862445, 81883077, 
-                    88906420, 72429244, 30524779, 82060337, 63832996];
+  List<int> nums = [
+    10546151,
+    35663510,
+    42865989,
+    34862445,
+    81883077,
+    88906420,
+    72429244,
+    30524779,
+    82060337,
+    63832996
+  ];
   radixSort(nums);
   print("基数排序完成后 nums = $nums");
 }

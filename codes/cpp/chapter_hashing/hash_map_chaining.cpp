@@ -17,8 +17,18 @@ class HashMapChaining {
 
   public:
     /* 构造方法 */
-    HashMapChaining() : size(0), capacity(4), loadThres(2.0 / 3), extendRatio(2) {
+    HashMapChaining() : size(0), capacity(4), loadThres(2.0 / 3.0), extendRatio(2) {
         buckets.resize(capacity);
+    }
+
+    /* 析构方法 */
+    ~HashMapChaining() {
+        for (auto &bucket : buckets) {
+            for (Pair *pair : bucket) {
+                // 释放内存
+                delete pair;
+            }
+        }
     }
 
     /* 哈希函数 */
@@ -34,14 +44,14 @@ class HashMapChaining {
     /* 查询操作 */
     string get(int key) {
         int index = hashFunc(key);
-        // 遍历桶，若找到 key 则返回对应 val
+        // 遍历桶，若找到 key ，则返回对应 val
         for (Pair *pair : buckets[index]) {
             if (pair->key == key) {
                 return pair->val;
             }
         }
-        // 若未找到 key 则返回 nullptr
-        return nullptr;
+        // 若未找到 key ，则返回空字符串
+        return "";
     }
 
     /* 添加操作 */
@@ -126,7 +136,7 @@ int main() {
     map.print();
 
     /* 查询操作 */
-    // 向哈希表输入键 key ，得到值 value
+    // 向哈希表中输入键 key ，得到值 value
     string name = map.get(13276);
     cout << "\n输入学号 13276 ，查询到姓名 " << name << endl;
 

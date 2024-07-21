@@ -20,17 +20,17 @@ class MaxHeap {
         }
     }
 
-    /* 获取左子节点索引 */
+    /* 获取左子节点的索引 */
     private func left(i: Int) -> Int {
         2 * i + 1
     }
 
-    /* 获取右子节点索引 */
+    /* 获取右子节点的索引 */
     private func right(i: Int) -> Int {
         2 * i + 2
     }
 
-    /* 获取父节点索引 */
+    /* 获取父节点的索引 */
     private func parent(i: Int) -> Int {
         (i - 1) / 2 // 向下整除
     }
@@ -69,7 +69,7 @@ class MaxHeap {
         while true {
             // 获取节点 i 的父节点
             let p = parent(i: i)
-            // 当“越过根节点”或“节点无需修复”时，结束堆化
+            // 当“越过根节点”或“节点无须修复”时，结束堆化
             if p < 0 || maxHeap[i] <= maxHeap[p] {
                 break
             }
@@ -86,7 +86,7 @@ class MaxHeap {
         if isEmpty() {
             fatalError("堆为空")
         }
-        // 交换根节点与最右叶节点（即交换首元素与尾元素）
+        // 交换根节点与最右叶节点（交换首元素与尾元素）
         swap(i: 0, j: size() - 1)
         // 删除节点
         let val = maxHeap.remove(at: size() - 1)
@@ -110,7 +110,7 @@ class MaxHeap {
             if r < size(), maxHeap[r] > maxHeap[ma] {
                 ma = r
             }
-            // 若节点 i 最大或索引 l, r 越界，则无需继续堆化，跳出
+            // 若节点 i 最大或索引 l, r 越界，则无须继续堆化，跳出
             if ma == i {
                 break
             }

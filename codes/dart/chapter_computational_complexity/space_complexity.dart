@@ -4,6 +4,8 @@
  * Author: Jefferson (JeffersonHuang77@gmail.com)
  */
 
+// ignore_for_file: unused_local_variable
+
 import 'dart:collection';
 import '../utils/list_node.dart';
 import '../utils/print_util.dart';
@@ -11,7 +13,7 @@ import '../utils/tree_node.dart';
 
 /* 函数 */
 int function() {
-  // do something
+  // 执行某些操作
   return 0;
 }
 
@@ -20,8 +22,8 @@ void constant(int n) {
   // 常量、变量、对象占用 O(1) 空间
   final int a = 0;
   int b = 0;
-
   List<int> nums = List.filled(10000, 0);
+  ListNode node = ListNode(0);
   // 循环中的变量占用 O(1) 空间
   for (var i = 0; i < n; i++) {
     int c = 0;
@@ -61,7 +63,6 @@ void quadratic(int n) {
   List<List<int>> numMatrix = List.generate(n, (_) => List.filled(n, 0));
   // 二维列表占用 O(n^2) 空间
   List<List<int>> numList = [];
-
   for (var i = 0; i < n; i++) {
     List<int> tmp = [];
     for (int j = 0; j < n; j++) {

@@ -7,16 +7,11 @@
 namespace hello_algo.utils;
 
 /* 二叉树节点类 */
-public class TreeNode {
-    public int val;        // 节点值
-    public int height;     // 节点高度
+public class TreeNode(int? x) {
+    public int? val = x;    // 节点值
+    public int height;      // 节点高度
     public TreeNode? left;  // 左子节点引用
     public TreeNode? right; // 右子节点引用
-
-    /* 构造方法 */
-    public TreeNode(int x) {
-        val = x;
-    }
 
     // 序列化编码规则请参考：
     // https://www.hello-algo.com/chapter_tree/array_representation_of_tree/
@@ -35,13 +30,14 @@ public class TreeNode {
     //             \——— 8
 
     /* 将列表反序列化为二叉树：递归 */
-    private static TreeNode? ListToTreeDFS(List<int?> arr, int i) {
-        if (i < 0|| i >= arr.Count || !arr[i].HasValue) {
+    static TreeNode? ListToTreeDFS(List<int?> arr, int i) {
+        if (i < 0 || i >= arr.Count || !arr[i].HasValue) {
             return null;
         }
-        TreeNode root = new TreeNode(arr[i].Value);
-        root.left = ListToTreeDFS(arr, 2 * i + 1);
-        root.right = ListToTreeDFS(arr, 2 * i + 2);
+        TreeNode root = new(arr[i]) {
+            left = ListToTreeDFS(arr, 2 * i + 1),
+            right = ListToTreeDFS(arr, 2 * i + 2)
+        };
         return root;
     }
 
@@ -51,7 +47,7 @@ public class TreeNode {
     }
 
     /* 将二叉树序列化为列表：递归 */
-    private static void TreeToListDFS(TreeNode? root, int i, List<int?> res) {
+    static void TreeToListDFS(TreeNode? root, int i, List<int?> res) {
         if (root == null)
             return;
         while (i >= res.Count) {
@@ -63,8 +59,8 @@ public class TreeNode {
     }
 
     /* 将二叉树序列化为列表 */
-    public static List<int?> treeToList(TreeNode root) {
-        List<int?> res = new List<int?>();
+    public static List<int?> TreeToList(TreeNode root) {
+        List<int?> res = [];
         TreeToListDFS(root, 0, res);
         return res;
     }

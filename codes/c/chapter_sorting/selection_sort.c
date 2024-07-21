@@ -14,7 +14,7 @@ void selectionSort(int nums[], int n) {
         int k = i;
         for (int j = i + 1; j < n; j++) {
             if (nums[j] < nums[k])
-                k = j;  // 记录最小元素的索引
+                k = j; // 记录最小元素的索引
         }
         // 将该最小元素与未排序区间的首个元素交换
         int temp = nums[i];
@@ -23,7 +23,7 @@ void selectionSort(int nums[], int n) {
     }
 }
 
-/* 主函数 */
+/* Driver Code */
 int main() {
     int nums[] = {4, 1, 3, 1, 5, 2};
     int n = sizeof(nums) / sizeof(nums[0]);

@@ -15,8 +15,8 @@ func minPathSumDFS(grid: [[Int]], i: Int, j: Int) -> Int {
         return .max
     }
     // 计算从左上角到 (i-1, j) 和 (i, j-1) 的最小路径代价
-    let left = minPathSumDFS(grid: grid, i: i - 1, j: j)
-    let up = minPathSumDFS(grid: grid, i: i, j: j - 1)
+    let up = minPathSumDFS(grid: grid, i: i - 1, j: j)
+    let left = minPathSumDFS(grid: grid, i: i, j: j - 1)
     // 返回从左上角到 (i, j) 的最小路径代价
     return min(left, up) + grid[i][j]
 }
@@ -36,8 +36,8 @@ func minPathSumDFSMem(grid: [[Int]], mem: inout [[Int]], i: Int, j: Int) -> Int 
         return mem[i][j]
     }
     // 左边和上边单元格的最小路径代价
-    let left = minPathSumDFSMem(grid: grid, mem: &mem, i: i - 1, j: j)
-    let up = minPathSumDFSMem(grid: grid, mem: &mem, i: i, j: j - 1)
+    let up = minPathSumDFSMem(grid: grid, mem: &mem, i: i - 1, j: j)
+    let left = minPathSumDFSMem(grid: grid, mem: &mem, i: i, j: j - 1)
     // 记录并返回左上角到 (i, j) 的最小路径代价
     mem[i][j] = min(left, up) + grid[i][j]
     return mem[i][j]
@@ -58,7 +58,7 @@ func minPathSumDP(grid: [[Int]]) -> Int {
     for i in stride(from: 1, to: n, by: 1) {
         dp[i][0] = dp[i - 1][0] + grid[i][0]
     }
-    // 状态转移：其余行列
+    // 状态转移：其余行和列
     for i in stride(from: 1, to: n, by: 1) {
         for j in stride(from: 1, to: m, by: 1) {
             dp[i][j] = min(dp[i][j - 1], dp[i - 1][j]) + grid[i][j]
@@ -67,7 +67,7 @@ func minPathSumDP(grid: [[Int]]) -> Int {
     return dp[n - 1][m - 1]
 }
 
-/* 最小路径和：状态压缩后的动态规划 */
+/* 最小路径和：空间优化后的动态规划 */
 func minPathSumDPComp(grid: [[Int]]) -> Int {
     let n = grid.count
     let m = grid[0].count
@@ -116,7 +116,7 @@ enum MinPathSum {
         res = minPathSumDP(grid: grid)
         print("从左上角到右下角的做小路径和为 \(res)")
 
-        // 状态压缩后的动态规划
+        // 空间优化后的动态规划
         res = minPathSumDPComp(grid: grid)
         print("从左上角到右下角的做小路径和为 \(res)")
     }

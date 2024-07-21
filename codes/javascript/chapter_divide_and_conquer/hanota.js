@@ -12,7 +12,7 @@ function move(src, tar) {
     tar.push(pan);
 }
 
-/* 求解汉诺塔：问题 f(i) */
+/* 求解汉诺塔问题 f(i) */
 function dfs(i, src, buf, tar) {
     // 若 src 只剩下一个圆盘，则直接将其移到 tar
     if (i === 1) {
@@ -27,8 +27,8 @@ function dfs(i, src, buf, tar) {
     dfs(i - 1, buf, src, tar);
 }
 
-/* 求解汉诺塔 */
-function hanota(A, B, C) {
+/* 求解汉诺塔问题 */
+function solveHanota(A, B, C) {
     const n = A.length;
     // 将 A 顶部 n 个圆盘借助 B 移到 C
     dfs(n, A, B, C);
@@ -44,7 +44,7 @@ console.log(`A = ${JSON.stringify(A)}`);
 console.log(`B = ${JSON.stringify(B)}`);
 console.log(`C = ${JSON.stringify(C)}`);
 
-hanota(A, B, C);
+solveHanota(A, B, C);
 
 console.log('圆盘移动完成后：');
 console.log(`A = ${JSON.stringify(A)}`);

@@ -4,10 +4,11 @@ Created Time: 2022-11-25
 Author: Krahets (krahets@163.com)
 """
 
-import sys, os.path as osp
+import sys
+from pathlib import Path
 
-sys.path.append(osp.dirname(osp.dirname(osp.abspath(__file__))))
-from modules import *
+sys.path.append(str(Path(__file__).parent.parent))
+from modules import ListNode, print_linked_list
 
 
 def insert(n0: ListNode, P: ListNode):
@@ -56,7 +57,7 @@ if __name__ == "__main__":
     n2 = ListNode(2)
     n3 = ListNode(5)
     n4 = ListNode(4)
-    # 构建引用指向
+    # 构建节点之间的引用
     n0.next = n1
     n1.next = n2
     n2.next = n3
@@ -65,7 +66,8 @@ if __name__ == "__main__":
     print_linked_list(n0)
 
     # 插入节点
-    insert(n0, ListNode(0))
+    p = ListNode(0)
+    insert(n0, p)
     print("插入节点后的链表为")
     print_linked_list(n0)
 

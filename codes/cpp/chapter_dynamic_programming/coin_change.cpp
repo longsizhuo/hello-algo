@@ -16,11 +16,11 @@ int coinChangeDP(vector<int> &coins, int amt) {
     for (int a = 1; a <= amt; a++) {
         dp[0][a] = MAX;
     }
-    // 状态转移：其余行列
+    // 状态转移：其余行和列
     for (int i = 1; i <= n; i++) {
         for (int a = 1; a <= amt; a++) {
             if (coins[i - 1] > a) {
-                // 若超过背包容量，则不选硬币 i
+                // 若超过目标金额，则不选硬币 i
                 dp[i][a] = dp[i - 1][a];
             } else {
                 // 不选和选硬币 i 这两种方案的较小值
@@ -31,7 +31,7 @@ int coinChangeDP(vector<int> &coins, int amt) {
     return dp[n][amt] != MAX ? dp[n][amt] : -1;
 }
 
-/* 零钱兑换：状态压缩后的动态规划 */
+/* 零钱兑换：空间优化后的动态规划 */
 int coinChangeDPComp(vector<int> &coins, int amt) {
     int n = coins.size();
     int MAX = amt + 1;
@@ -42,7 +42,7 @@ int coinChangeDPComp(vector<int> &coins, int amt) {
     for (int i = 1; i <= n; i++) {
         for (int a = 1; a <= amt; a++) {
             if (coins[i - 1] > a) {
-                // 若超过背包容量，则不选硬币 i
+                // 若超过目标金额，则不选硬币 i
                 dp[a] = dp[a];
             } else {
                 // 不选和选硬币 i 这两种方案的较小值
@@ -62,7 +62,7 @@ int main() {
     int res = coinChangeDP(coins, amt);
     cout << "凑到目标金额所需的最少硬币数量为 " << res << endl;
 
-    // 状态压缩后的动态规划
+    // 空间优化后的动态规划
     res = coinChangeDPComp(coins, amt);
     cout << "凑到目标金额所需的最少硬币数量为 " << res << endl;
 

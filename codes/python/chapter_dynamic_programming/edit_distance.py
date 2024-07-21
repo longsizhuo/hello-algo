@@ -62,7 +62,7 @@ def edit_distance_dp(s: str, t: str) -> int:
         dp[i][0] = i
     for j in range(1, m + 1):
         dp[0][j] = j
-    # 状态转移：其余行列
+    # 状态转移：其余行和列
     for i in range(1, n + 1):
         for j in range(1, m + 1):
             if s[i - 1] == t[j - 1]:
@@ -75,7 +75,7 @@ def edit_distance_dp(s: str, t: str) -> int:
 
 
 def edit_distance_dp_comp(s: str, t: str) -> int:
-    """编辑距离：状态压缩后的动态规划"""
+    """编辑距离：空间优化后的动态规划"""
     n, m = len(s), len(t)
     dp = [0] * (m + 1)
     # 状态转移：首行
@@ -118,6 +118,6 @@ if __name__ == "__main__":
     res = edit_distance_dp(s, t)
     print(f"将 {s} 更改为 {t} 最少需要编辑 {res} 步")
 
-    # 状态压缩后的动态规划
+    # 空间优化后的动态规划
     res = edit_distance_dp_comp(s, t)
     print(f"将 {s} 更改为 {t} 最少需要编辑 {res} 步")

@@ -73,7 +73,7 @@ func editDistanceDP(s: String, t: String) -> Int {
     for j in stride(from: 1, through: m, by: 1) {
         dp[0][j] = j
     }
-    // 状态转移：其余行列
+    // 状态转移：其余行和列
     for i in stride(from: 1, through: n, by: 1) {
         for j in stride(from: 1, through: m, by: 1) {
             if s.utf8CString[i - 1] == t.utf8CString[j - 1] {
@@ -88,7 +88,7 @@ func editDistanceDP(s: String, t: String) -> Int {
     return dp[n][m]
 }
 
-/* 编辑距离：状态压缩后的动态规划 */
+/* 编辑距离：空间优化后的动态规划 */
 func editDistanceDPComp(s: String, t: String) -> Int {
     let n = s.utf8CString.count
     let m = t.utf8CString.count
@@ -140,7 +140,7 @@ enum EditDistance {
         res = editDistanceDP(s: s, t: t)
         print("将 \(s) 更改为 \(t) 最少需要编辑 \(res) 步")
 
-        // 状态压缩后的动态规划
+        // 空间优化后的动态规划
         res = editDistanceDPComp(s: s, t: t)
         print("将 \(s) 更改为 \(t) 最少需要编辑 \(res) 步")
     }

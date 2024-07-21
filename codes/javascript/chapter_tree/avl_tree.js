@@ -9,7 +9,7 @@ const { printTree } = require('../modules/PrintUtil');
 
 /* AVL 树*/
 class AVLTree {
-    /*构造方法*/
+    /* 构造方法 */
     constructor() {
         this.root = null; //根节点
     }
@@ -89,7 +89,7 @@ class AVLTree {
                 return this.#leftRotate(node);
             }
         }
-        // 平衡树，无需旋转，直接返回
+        // 平衡树，无须旋转，直接返回
         return node;
     }
 
@@ -101,7 +101,7 @@ class AVLTree {
     /* 递归插入节点（辅助方法） */
     #insertHelper(node, val) {
         if (node === null) return new TreeNode(val);
-        /* 1. 查找插入位置，并插入节点 */
+        /* 1. 查找插入位置并插入节点 */
         if (val < node.val) node.left = this.#insertHelper(node.left, val);
         else if (val > node.val)
             node.right = this.#insertHelper(node.right, val);
@@ -121,7 +121,7 @@ class AVLTree {
     /* 递归删除节点（辅助方法） */
     #removeHelper(node, val) {
         if (node === null) return null;
-        /* 1. 查找节点，并删除之 */
+        /* 1. 查找节点并删除 */
         if (val < node.val) node.left = this.#removeHelper(node.left, val);
         else if (val > node.val)
             node.right = this.#removeHelper(node.right, val);

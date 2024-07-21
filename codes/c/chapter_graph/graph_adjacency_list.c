@@ -6,272 +6,166 @@
 
 #include "../utils/common.h"
 
-typedef struct Vertex Vertex;
-typedef struct Node Node;
-typedef struct linkList linkList;
+// 假设节点最大数量为 100
+#define MAX_SIZE 100
 
-void freeVertex(Vertex *);
-void freeLinklist(linkList *);
-linkList *newLinklist(Vertex *);
+/* 节点结构体 */
+typedef struct AdjListNode {
+    Vertex *vertex;           // 顶点
+    struct AdjListNode *next; // 后继节点
+} AdjListNode;
 
-/* 链表节点 */
-struct Node {
-    // 链表节点内包含顶点类和下一个节点地址
-    Vertex *val;
-    Node *next;
-};
+/* 基于邻接表实现的无向图类 */
+typedef struct {
+    AdjListNode *heads[MAX_SIZE]; // 节点数组
+    int size;                     // 节点数量
+} GraphAdjList;
 
-/* 链表节点构造函数 */
-Node *newNode() {
-    Node *n = (Node *)malloc(sizeof(Node));
-    n->next = 0;
-    n->val = 0;
-    return n;
-}
-
-/* 顶点节点类 */
-struct Vertex {
-    // 节点值
-    int val;
-    // 与其它节点相连接的边的链表
-    linkList *linked;
-    // 索引位，标记该顶点在顶点列表中的索引
-    unsigned int pos;
-};
-
-/* 顶点节点构造函数 */
-Vertex *newVertex(int val) {
-    Vertex *vet = (Vertex *)malloc(sizeof(Vertex));
-    // 为新节点赋值并建立该节点的链表
-    vet->val = val;
-    vet->linked = newLinklist(vet);
-    return vet;
-}
-
-/* 顶点内存释放函数 */
-void freeVertex(Vertex *val) {
-    // 释放该顶点和该顶点的链表的内存
-    freeLinklist(val->linked);
-    free(val);
-}
-
-/* 链表 */
-struct linkList {
-    Node *head;
-    Node *tail;
-};
-
-/* 链表头插法 */
-void pushFront(linkList *l, Vertex *val) {
-    Node *temp = newNode();
-    temp->val = val;
-    temp->next = l->head->next;
-    l->head->next = temp;
-    if (l->tail == l->head) {
-        l->tail = temp;
+/* 构造函数 */
+GraphAdjList *newGraphAdjList() {
+    GraphAdjList *graph = (GraphAdjList *)malloc(sizeof(GraphAdjList));
+    if (!graph) {
+        return NULL;
     }
+    graph->size = 0;
+    for (int i = 0; i < MAX_SIZE; i++) {
+        graph->heads[i] = NULL;
+    }
+    return graph;
 }
 
-/* 链表尾插法 */
-void pushBack(linkList *l, Vertex *val) {
-    Node *temp = newNode();
-    temp->val = val;
-    temp->next = 0;
-    l->tail->next = temp;
-    l->tail = temp;
-}
-
-/* 根据顶点地址与该顶点连接的删除边 */
-void removeLink(linkList *l, Vertex *val) {
-    Node *temp = l->head->next;
-    Node *front = l->head;
-    while (temp != 0) {
-        if (temp->val == val) {
-            front->next = temp->next;
-            if (l->tail == temp) {
-                l->tail = front;
+/* 析构函数 */
+void delGraphAdjList(GraphAdjList *graph) {
+    for (int i = 0; i < graph->size; i++) {
+        AdjListNode *cur = graph->heads[i];
+        while (cur != NULL) {
+            AdjListNode *next = cur->next;
+            if (cur != graph->heads[i]) {
+                free(cur);
             }
-            free(temp);
-            return;
+            cur = next;
         }
-        front = temp;
-        temp = temp->next;
+        free(graph->heads[i]->vertex);
+        free(graph->heads[i]);
     }
-
-    if (temp->next == 0) {
-        printf("vertex not found!\n");
-    }
+    free(graph);
 }
 
-/* 根据顶点地址删除顶点 */
-void removeNode(linkList *l, Vertex *val) {
-    Node *temp = l->head->next;
-    Node *front = l->head;
-    while (temp != 0) {
-        if (temp->val == val) {
-            front->next = temp->next;
-            if (l->tail == temp) {
-                l->tail = front;
-            }
-            freeVertex(val);
-            free(temp);
-            return;
+/* 查找顶点对应的节点 */
+AdjListNode *findNode(GraphAdjList *graph, Vertex *vet) {
+    for (int i = 0; i < graph->size; i++) {
+        if (graph->heads[i]->vertex == vet) {
+            return graph->heads[i];
         }
-        front = temp;
-        temp = temp->next;
     }
-
-    if (temp->next == 0) {
-        printf("vertex not found!\n");
-    }
+    return NULL;
 }
 
-/* 释放链表内存 */
-void freeLinklist(linkList *l) {
-    Node *temp = l->head->next;
-    while (temp != 0) {
-        free(l->head);
-        l->head = temp;
-        temp = temp->next;
-    }
-    free(l->head);
-    l->head = 0;
-    free(l);
+/* 添加边辅助函数 */
+void addEdgeHelper(AdjListNode *head, Vertex *vet) {
+    AdjListNode *node = (AdjListNode *)malloc(sizeof(AdjListNode));
+    node->vertex = vet;
+    // 头插法
+    node->next = head->next;
+    head->next = node;
 }
-
-/* 链表构造函数 */
-linkList *newLinklist(Vertex *val) {
-    linkList *newLinklist = (linkList *)malloc(sizeof(linkList));
-
-    newLinklist->head = newNode();
-    newLinklist->head->val = val;
-    newLinklist->tail = newLinklist->head;
-    newLinklist->head->next = 0;
-
-    return newLinklist;
-}
-
-/* 基于邻接链表实现的无向图类结构 */
-struct graphAdjList {
-    Vertex **verticesList; // 邻接表
-    unsigned int size;     // 顶点数量
-    unsigned int capacity; // 顶点容量
-};
-
-typedef struct graphAdjList graphAdjList;
 
 /* 添加边 */
-void addEdge(graphAdjList *t, int i, int j) {
-    // 越界检查
-    if (i < 0 || j < 0 || i == j || i >= t->size || j >= t->size) {
-        printf("Out of range in %s:%d\n", __FILE__, __LINE__);
-        return;
-    }
-    // 查找欲添加边的顶点 vet1 - vet2
-    Vertex *vet1 = t->verticesList[i];
-    Vertex *vet2 = t->verticesList[j];
+void addEdge(GraphAdjList *graph, Vertex *vet1, Vertex *vet2) {
+    AdjListNode *head1 = findNode(graph, vet1);
+    AdjListNode *head2 = findNode(graph, vet2);
+    assert(head1 != NULL && head2 != NULL && head1 != head2);
+    // 添加边 vet1 - vet2
+    addEdgeHelper(head1, vet2);
+    addEdgeHelper(head2, vet1);
+}
 
-    // 连接顶点 vet1 - vet2
-    pushBack(vet1->linked, vet2);
-    pushBack(vet2->linked, vet1);
+/* 删除边辅助函数 */
+void removeEdgeHelper(AdjListNode *head, Vertex *vet) {
+    AdjListNode *pre = head;
+    AdjListNode *cur = head->next;
+    // 在链表中搜索 vet 对应节点
+    while (cur != NULL && cur->vertex != vet) {
+        pre = cur;
+        cur = cur->next;
+    }
+    if (cur == NULL)
+        return;
+    // 将 vet 对应节点从链表中删除
+    pre->next = cur->next;
+    // 释放内存
+    free(cur);
 }
 
 /* 删除边 */
-void removeEdge(graphAdjList *t, int i, int j) {
-    // 越界检查
-    if (i < 0 || j < 0 || i == j || i >= t->size || j >= t->size) {
-        printf("Out of range in %s:%d\n", __FILE__, __LINE__);
-        return;
-    }
-
-    // 查找欲删除边的顶点 vet1 - vet2
-    Vertex *vet1 = t->verticesList[i];
-    Vertex *vet2 = t->verticesList[j];
-
-    // 移除待删除边 vet1 - vet2
-    removeLink(vet1->linked, vet2);
-    removeLink(vet2->linked, vet1);
+void removeEdge(GraphAdjList *graph, Vertex *vet1, Vertex *vet2) {
+    AdjListNode *head1 = findNode(graph, vet1);
+    AdjListNode *head2 = findNode(graph, vet2);
+    assert(head1 != NULL && head2 != NULL);
+    // 删除边 vet1 - vet2
+    removeEdgeHelper(head1, head2->vertex);
+    removeEdgeHelper(head2, head1->vertex);
 }
 
 /* 添加顶点 */
-void addVertex(graphAdjList *t, int val) {
-    // 若大小超过容量，则扩容
-    if (t->size >= t->capacity) {
-        Vertex **tempList = (Vertex **)malloc(sizeof(Vertex *) * 2 * t->capacity);
-        memcpy(tempList, t->verticesList, sizeof(Vertex *) * t->size);
-        free(t->verticesList);         // 释放原邻接表内存
-        t->verticesList = tempList;    // 指向新邻接表
-        t->capacity = t->capacity * 2; // 容量扩大至2倍
-    }
-    // 申请新顶点内存并将新顶点地址存入顶点列表
-    Vertex *newV = newVertex(val);    // 建立新顶点
-    newV->pos = t->size;              // 为新顶点标记下标
-    newV->linked = newLinklist(newV); // 为新顶点建立链表
-    t->verticesList[t->size] = newV;  // 将新顶点加入邻接表
-    t->size++;
+void addVertex(GraphAdjList *graph, Vertex *vet) {
+    assert(graph != NULL && graph->size < MAX_SIZE);
+    AdjListNode *head = (AdjListNode *)malloc(sizeof(AdjListNode));
+    head->vertex = vet;
+    head->next = NULL;
+    // 在邻接表中添加一个新链表
+    graph->heads[graph->size++] = head;
 }
 
 /* 删除顶点 */
-void removeVertex(graphAdjList *t, unsigned int index) {
-    // 越界检查
-    if (index < 0 || index >= t->size) {
-        printf("Out of range in %s:%d\n", __FILE__, __LINE__);
-        exit(1);
+void removeVertex(GraphAdjList *graph, Vertex *vet) {
+    AdjListNode *node = findNode(graph, vet);
+    assert(node != NULL);
+    // 在邻接表中删除顶点 vet 对应的链表
+    AdjListNode *cur = node, *pre = NULL;
+    while (cur) {
+        pre = cur;
+        cur = cur->next;
+        free(pre);
     }
-
-    Vertex *vet = t->verticesList[index]; // 查找待删节点
-    if (vet == 0) {                       // 若不存在该节点，则返回
-        printf("index is:%d\n", index);
-        printf("Out of range in %s:%d\n", __FILE__, __LINE__);
-        return;
+    // 遍历其他顶点的链表，删除所有包含 vet 的边
+    for (int i = 0; i < graph->size; i++) {
+        cur = graph->heads[i];
+        pre = NULL;
+        while (cur) {
+            pre = cur;
+            cur = cur->next;
+            if (cur && cur->vertex == vet) {
+                pre->next = cur->next;
+                free(cur);
+                break;
+            }
+        }
     }
-
-    // 遍历待删除顶点的链表，将所有与待删除结点有关的边删除
-    Node *temp = vet->linked->head->next;
-    while (temp != 0) {
-        removeLink(temp->val->linked, vet); // 删除与该顶点有关的边
-        temp = temp->next;                
+    // 将该顶点之后的顶点向前移动，以填补空缺
+    int i;
+    for (i = 0; i < graph->size; i++) {
+        if (graph->heads[i] == node)
+            break;
     }
-
-    // 将顶点前移
-    for (int i = index; i < t->size - 1; i++) {
-        t->verticesList[i] = t->verticesList[i + 1]; // 顶点前移
-        t->verticesList[i]->pos--;                   // 所有前移的顶点索引值减1
+    for (int j = i; j < graph->size - 1; j++) {
+        graph->heads[j] = graph->heads[j + 1];
     }
-    t->verticesList[t->size - 1] = 0; // 将被删除顶点的位置置 0
-    t->size--;
-
-    //释放被删除顶点的内存
-    freeVertex(vet);
+    graph->size--;
+    free(vet);
 }
 
-/* 打印顶点与邻接矩阵 */
-void printGraph(graphAdjList *t) {
-    printf("邻接表  =\n");
-    for (int i = 0; i < t->size; i++) {
-        Node *n = t->verticesList[i]->linked->head->next;
-        printf("%d: [", t->verticesList[i]->val);
-        while (n != 0) {
-            if (n->next != 0) {
-                printf("%d, ", n->val->val);
-            } else {
-                printf("%d", n->val->val);
-            }
-            n = n->next;
+/* 打印邻接表 */
+void printGraph(const GraphAdjList *graph) {
+    printf("邻接表 =\n");
+    for (int i = 0; i < graph->size; ++i) {
+        AdjListNode *node = graph->heads[i];
+        printf("%d: [", node->vertex->val);
+        node = node->next;
+        while (node) {
+            printf("%d, ", node->vertex->val);
+            node = node->next;
         }
         printf("]\n");
     }
-}
-
-/* 构造函数 */
-graphAdjList *newGraphAdjList(unsigned int verticesCapacity) {
-    // 申请内存
-    graphAdjList *newGraph = (graphAdjList *)malloc(sizeof(graphAdjList));
-    // 建立顶点表并分配内存
-    newGraph->verticesList = (Vertex **)malloc(sizeof(Vertex *) * verticesCapacity); // 为顶点列表分配内存
-    memset(newGraph->verticesList, 0, sizeof(Vertex *) * verticesCapacity);          // 顶点列表置 0
-    newGraph->size = 0;                                                              // 初始化顶点数量
-    newGraph->capacity = verticesCapacity;                                           // 初始化顶点容量
-    // 返回图指针
-    return newGraph;                
 }

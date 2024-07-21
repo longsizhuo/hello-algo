@@ -17,7 +17,7 @@ func coinChangeIIDP(coins: [Int], amt: Int) -> Int {
     for i in stride(from: 1, through: n, by: 1) {
         for a in stride(from: 1, through: amt, by: 1) {
             if coins[i - 1] > a {
-                // 若超过背包容量，则不选硬币 i
+                // 若超过目标金额，则不选硬币 i
                 dp[i][a] = dp[i - 1][a]
             } else {
                 // 不选和选硬币 i 这两种方案之和
@@ -28,7 +28,7 @@ func coinChangeIIDP(coins: [Int], amt: Int) -> Int {
     return dp[n][amt]
 }
 
-/* 零钱兑换 II：状态压缩后的动态规划 */
+/* 零钱兑换 II：空间优化后的动态规划 */
 func coinChangeIIDPComp(coins: [Int], amt: Int) -> Int {
     let n = coins.count
     // 初始化 dp 表
@@ -38,7 +38,7 @@ func coinChangeIIDPComp(coins: [Int], amt: Int) -> Int {
     for i in stride(from: 1, through: n, by: 1) {
         for a in stride(from: 1, through: amt, by: 1) {
             if coins[i - 1] > a {
-                // 若超过背包容量，则不选硬币 i
+                // 若超过目标金额，则不选硬币 i
                 dp[a] = dp[a]
             } else {
                 // 不选和选硬币 i 这两种方案之和
@@ -60,7 +60,7 @@ enum CoinChangeII {
         var res = coinChangeIIDP(coins: coins, amt: amt)
         print("凑出目标金额的硬币组合数量为 \(res)")
 
-        // 状态压缩后的动态规划
+        // 空间优化后的动态规划
         res = coinChangeIIDPComp(coins: coins, amt: amt)
         print("凑出目标金额的硬币组合数量为 \(res)")
     }

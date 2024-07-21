@@ -1,6 +1,6 @@
 // File: min_cost_climbing_stairs_dp.zig
 // Created Time: 2023-07-15
-// Author: sjinzh (sjinzh@gmail.com)
+// Author: codingonion (coderonion@gmail.com)
 
 const std = @import("std");
 
@@ -22,7 +22,7 @@ fn minCostClimbingStairsDP(comptime cost: []i32) i32 {
     return dp[n];
 }
 
-// 爬楼梯最小代价：状态压缩后的动态规划
+// 爬楼梯最小代价：空间优化后的动态规划
 fn minCostClimbingStairsDPComp(cost: []i32) i32 {
     var n = cost.len - 1;
     if (n == 1 or n == 2) {

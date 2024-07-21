@@ -7,23 +7,21 @@
 #include "../utils/common.h"
 
 /* 基于链表实现的栈 */
-struct linkedListStack {
+typedef struct {
     ListNode *top; // 将头节点作为栈顶
     int size;      // 栈的长度
-};
-
-typedef struct linkedListStack linkedListStack;
+} LinkedListStack;
 
 /* 构造函数 */
-linkedListStack *newLinkedListStack() {
-    linkedListStack *s = malloc(sizeof(linkedListStack));
+LinkedListStack *newLinkedListStack() {
+    LinkedListStack *s = malloc(sizeof(LinkedListStack));
     s->top = NULL;
     s->size = 0;
     return s;
 }
 
 /* 析构函数 */
-void delLinkedListStack(linkedListStack *s) {
+void delLinkedListStack(LinkedListStack *s) {
     while (s->top) {
         ListNode *n = s->top->next;
         free(s->top);
@@ -33,27 +31,17 @@ void delLinkedListStack(linkedListStack *s) {
 }
 
 /* 获取栈的长度 */
-int size(linkedListStack *s) {
-    assert(s);
+int size(LinkedListStack *s) {
     return s->size;
 }
 
 /* 判断栈是否为空 */
-bool isEmpty(linkedListStack *s) {
-    assert(s);
+bool isEmpty(LinkedListStack *s) {
     return size(s) == 0;
 }
 
-/* 访问栈顶元素 */
-int peek(linkedListStack *s) {
-    assert(s);
-    assert(size(s) != 0);
-    return s->top->val;
-}
-
 /* 入栈 */
-void push(linkedListStack *s, int num) {
-    assert(s);
+void push(LinkedListStack *s, int num) {
     ListNode *node = (ListNode *)malloc(sizeof(ListNode));
     node->next = s->top; // 更新新加节点指针域
     node->val = num;     // 更新新加节点数据域
@@ -61,13 +49,17 @@ void push(linkedListStack *s, int num) {
     s->size++;           // 更新栈大小
 }
 
-/* 出栈 */
-int pop(linkedListStack *s) {
+/* 访问栈顶元素 */
+int peek(LinkedListStack *s) {
     if (s->size == 0) {
-        printf("stack is empty.\n");
+        printf("栈为空\n");
         return INT_MAX;
     }
-    assert(s);
+    return s->top->val;
+}
+
+/* 出栈 */
+int pop(LinkedListStack *s) {
     int val = peek(s);
     ListNode *tmp = s->top;
     s->top = s->top->next;
@@ -80,7 +72,7 @@ int pop(linkedListStack *s) {
 /* Driver Code */
 int main() {
     /* 初始化栈 */
-    linkedListStack *stack = newLinkedListStack();
+    LinkedListStack *stack = newLinkedListStack();
 
     /* 元素入栈 */
     push(stack, 1);

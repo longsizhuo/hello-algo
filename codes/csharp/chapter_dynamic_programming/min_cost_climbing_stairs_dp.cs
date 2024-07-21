@@ -8,7 +8,7 @@ namespace hello_algo.chapter_dynamic_programming;
 
 public class min_cost_climbing_stairs_dp {
     /* 爬楼梯最小代价：动态规划 */
-    public int minCostClimbingStairsDP(int[] cost) {
+    int MinCostClimbingStairsDP(int[] cost) {
         int n = cost.Length - 1;
         if (n == 1 || n == 2)
             return cost[n];
@@ -24,8 +24,8 @@ public class min_cost_climbing_stairs_dp {
         return dp[n];
     }
 
-    /* 爬楼梯最小代价：状态压缩后的动态规划 */
-    public int minCostClimbingStairsDPComp(int[] cost) {
+    /* 爬楼梯最小代价：空间优化后的动态规划 */
+    int MinCostClimbingStairsDPComp(int[] cost) {
         int n = cost.Length - 1;
         if (n == 1 || n == 2)
             return cost[n];
@@ -40,14 +40,14 @@ public class min_cost_climbing_stairs_dp {
 
     [Test]
     public void Test() {
-        int[] cost = { 0, 1, 10, 1, 1, 1, 10, 1, 1, 10, 1 };
+        int[] cost = [0, 1, 10, 1, 1, 1, 10, 1, 1, 10, 1];
         Console.WriteLine("输入楼梯的代价列表为");
         PrintUtil.PrintList(cost);
 
-        int res = minCostClimbingStairsDP(cost);
+        int res = MinCostClimbingStairsDP(cost);
         Console.WriteLine($"爬完楼梯的最低代价为 {res}");
 
-        res = minCostClimbingStairsDPComp(cost);
+        res = MinCostClimbingStairsDPComp(cost);
         Console.WriteLine($"爬完楼梯的最低代价为 {res}");
     }
 }

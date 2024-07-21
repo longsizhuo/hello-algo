@@ -31,25 +31,25 @@ class ArrayQueue {
   }
 
   /* 入队 */
-  void push(int num) {
+  void push(int _num) {
     if (_queSize == capaCity()) {
       throw Exception("队列已满");
     }
-    // 计算尾指针，指向队尾索引 + 1
-    // 通过取余操作，实现 rear 越过数组尾部后回到头部
+    // 计算队尾指针，指向队尾索引 + 1
+    // 通过取余操作实现 rear 越过数组尾部后回到头部
     int rear = (_front + _queSize) % capaCity();
-    // 将 num 添加至队尾
-    _nums[rear] = num;
+    // 将 _num 添加至队尾
+    _nums[rear] = _num;
     _queSize++;
   }
 
   /* 出队 */
   int pop() {
-    int num = peek();
-    // 队首指针向后移动一位，若越过尾部则返回到数组头部
+    int _num = peek();
+    // 队首指针向后移动一位，若越过尾部，则返回到数组头部
     _front = (_front + 1) % capaCity();
     _queSize--;
-    return num;
+    return _num;
   }
 
   /* 访问队首元素 */
@@ -91,7 +91,7 @@ void main() {
 
   /* 元素出队 */
   final int pop = queue.pop();
-  print("出队元素 pop = $pop，出队后 queue = ${queue.toArray()}");
+  print("出队元素 pop = $pop ，出队后 queue = ${queue.toArray()}");
 
   /* 获取队列长度 */
   final int size = queue.size();

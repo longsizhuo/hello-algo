@@ -7,8 +7,8 @@
 /* 双向链表节点 */
 class ListNode {
     var val: Int // 节点值
-    var next: ListNode? // 后继节点引用（指针）
-    weak var prev: ListNode? // 前驱节点引用（指针）
+    var next: ListNode? // 后继节点引用
+    weak var prev: ListNode? // 前驱节点引用
 
     init(val: Int) {
         self.val = val
@@ -38,7 +38,7 @@ class LinkedListDeque {
     /* 入队操作 */
     private func push(num: Int, isFront: Bool) {
         let node = ListNode(val: num)
-        // 若链表为空，则令 front, rear 都指向 node
+        // 若链表为空，则令 front 和 rear 都指向 node
         if isEmpty() {
             front = node
             rear = node

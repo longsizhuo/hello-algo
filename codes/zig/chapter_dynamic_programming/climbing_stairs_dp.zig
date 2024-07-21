@@ -1,6 +1,6 @@
 // File: climbing_stairs_dp.zig
 // Created Time: 2023-07-15
-// Author: sjinzh (sjinzh@gmail.com)
+// Author: codingonion (coderonion@gmail.com)
 
 const std = @import("std");
 
@@ -22,7 +22,7 @@ fn climbingStairsDP(comptime n: usize) i32 {
     return dp[n];
 }
 
-// 爬楼梯：状态压缩后的动态规划
+// 爬楼梯：空间优化后的动态规划
 fn climbingStairsDPComp(comptime n: usize) i32 {
     if (n == 1 or n == 2) {
         return @intCast(n);

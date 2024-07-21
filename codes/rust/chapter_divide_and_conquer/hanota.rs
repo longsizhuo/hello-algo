@@ -1,7 +1,7 @@
 /*
  * File: hanota.rs
  * Created Time: 2023-07-15
- * Author: sjinzh (sjinzh@gmail.com)
+ * Author: codingonion (coderonion@gmail.com)
  */
 
 #![allow(non_snake_case)]
@@ -14,7 +14,7 @@ fn move_pan(src: &mut Vec<i32>, tar: &mut Vec<i32>) {
     tar.push(pan);
 }
 
-/* 求解汉诺塔：问题 f(i) */
+/* 求解汉诺塔问题 f(i) */
 fn dfs(i: i32, src: &mut Vec<i32>, buf: &mut Vec<i32>, tar: &mut Vec<i32>) {
     // 若 src 只剩下一个圆盘，则直接将其移到 tar
     if i == 1 {
@@ -29,8 +29,8 @@ fn dfs(i: i32, src: &mut Vec<i32>, buf: &mut Vec<i32>, tar: &mut Vec<i32>) {
     dfs(i - 1, buf, src, tar);
 }
 
-/* 求解汉诺塔 */
-fn hanota(A: &mut Vec<i32>, B: &mut Vec<i32>, C: &mut Vec<i32>) {
+/* 求解汉诺塔问题 */
+fn solve_hanota(A: &mut Vec<i32>, B: &mut Vec<i32>, C: &mut Vec<i32>) {
     let n = A.len() as i32;
     // 将 A 顶部 n 个圆盘借助 B 移到 C
     dfs(n, A, B, C);
@@ -46,7 +46,7 @@ pub fn main() {
     println!("B = {:?}", B);
     println!("C = {:?}", C);
 
-    hanota(&mut A, &mut B, &mut C);
+    solve_hanota(&mut A, &mut B, &mut C);
 
     println!("圆盘移动完成后：");
     println!("A = {:?}", A);

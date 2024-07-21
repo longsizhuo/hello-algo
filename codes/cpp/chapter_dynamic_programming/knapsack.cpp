@@ -6,11 +6,11 @@ using namespace std;
 
 /* 0-1 背包：暴力搜索 */
 int knapsackDFS(vector<int> &wgt, vector<int> &val, int i, int c) {
-    // 若已选完所有物品或背包无容量，则返回价值 0
+    // 若已选完所有物品或背包无剩余容量，则返回价值 0
     if (i == 0 || c == 0) {
         return 0;
     }
-    // 若超过背包容量，则只能不放入背包
+    // 若超过背包容量，则只能选择不放入背包
     if (wgt[i - 1] > c) {
         return knapsackDFS(wgt, val, i - 1, c);
     }
@@ -23,7 +23,7 @@ int knapsackDFS(vector<int> &wgt, vector<int> &val, int i, int c) {
 
 /* 0-1 背包：记忆化搜索 */
 int knapsackDFSMem(vector<int> &wgt, vector<int> &val, vector<vector<int>> &mem, int i, int c) {
-    // 若已选完所有物品或背包无容量，则返回价值 0
+    // 若已选完所有物品或背包无剩余容量，则返回价值 0
     if (i == 0 || c == 0) {
         return 0;
     }
@@ -31,7 +31,7 @@ int knapsackDFSMem(vector<int> &wgt, vector<int> &val, vector<vector<int>> &mem,
     if (mem[i][c] != -1) {
         return mem[i][c];
     }
-    // 若超过背包容量，则只能不放入背包
+    // 若超过背包容量，则只能选择不放入背包
     if (wgt[i - 1] > c) {
         return knapsackDFSMem(wgt, val, mem, i - 1, c);
     }
@@ -63,7 +63,7 @@ int knapsackDP(vector<int> &wgt, vector<int> &val, int cap) {
     return dp[n][cap];
 }
 
-/* 0-1 背包：状态压缩后的动态规划 */
+/* 0-1 背包：空间优化后的动态规划 */
 int knapsackDPComp(vector<int> &wgt, vector<int> &val, int cap) {
     int n = wgt.size();
     // 初始化 dp 表
@@ -101,7 +101,7 @@ int main() {
     res = knapsackDP(wgt, val, cap);
     cout << "不超过背包容量的最大物品价值为 " << res << endl;
 
-    // 状态压缩后的动态规划
+    // 空间优化后的动态规划
     res = knapsackDPComp(wgt, val, cap);
     cout << "不超过背包容量的最大物品价值为 " << res << endl;
 

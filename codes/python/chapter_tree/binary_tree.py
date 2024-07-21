@@ -4,10 +4,11 @@ Created Time: 2022-12-20
 Author: a16su (lpluls001@gmail.com)
 """
 
-import sys, os.path as osp
+import sys
+from pathlib import Path
 
-sys.path.append(osp.dirname(osp.dirname(osp.abspath(__file__))))
-from modules import *
+sys.path.append(str(Path(__file__).parent.parent))
+from modules import TreeNode, print_tree
 
 
 """Driver Code"""
@@ -19,7 +20,7 @@ if __name__ == "__main__":
     n3 = TreeNode(val=3)
     n4 = TreeNode(val=4)
     n5 = TreeNode(val=5)
-    # 构建引用指向（即指针）
+    # 构建节点之间的引用（指针）
     n1.left = n2
     n1.right = n3
     n2.left = n4

@@ -8,7 +8,7 @@ namespace hello_algo.chapter_greedy;
 
 public class coin_change_greedy {
     /* 零钱兑换：贪心 */
-    public int coinChangeGreedy(int[] coins, int amt) {
+    int CoinChangeGreedy(int[] coins, int amt) {
         // 假设 coins 列表有序
         int i = coins.Length - 1;
         int count = 0;
@@ -29,24 +29,24 @@ public class coin_change_greedy {
     [Test]
     public void Test() {
         // 贪心：能够保证找到全局最优解
-        int[] coins = { 1, 5, 10, 20, 50, 100 };
+        int[] coins = [1, 5, 10, 20, 50, 100];
         int amt = 186;
-        int res = coinChangeGreedy(coins, amt);
+        int res = CoinChangeGreedy(coins, amt);
         Console.WriteLine("\ncoins = " + coins.PrintList() + ", amt = " + amt);
         Console.WriteLine("凑到 " + amt + " 所需的最少硬币数量为 " + res);
 
         // 贪心：无法保证找到全局最优解
-        coins = new int[] { 1, 20, 50 };
+        coins = [1, 20, 50];
         amt = 60;
-        res = coinChangeGreedy(coins, amt);
+        res = CoinChangeGreedy(coins, amt);
         Console.WriteLine("\ncoins = " + coins.PrintList() + ", amt = " + amt);
         Console.WriteLine("凑到 " + amt + " 所需的最少硬币数量为 " + res);
         Console.WriteLine("实际上需要的最少数量为 3 ，即 20 + 20 + 20");
 
         // 贪心：无法保证找到全局最优解
-        coins = new int[] { 1, 49, 50 };
+        coins = [1, 49, 50];
         amt = 98;
-        res = coinChangeGreedy(coins, amt);
+        res = CoinChangeGreedy(coins, amt);
         Console.WriteLine("\ncoins = " + coins.PrintList() + ", amt = " + amt);
         Console.WriteLine("凑到 " + amt + " 所需的最少硬币数量为 " + res);
         Console.WriteLine("实际上需要的最少数量为 2 ，即 49 + 49");

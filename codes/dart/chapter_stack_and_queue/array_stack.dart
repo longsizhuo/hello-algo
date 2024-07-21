@@ -22,8 +22,8 @@ class ArrayStack {
   }
 
   /* 入栈 */
-  void push(int num) {
-    _stack.add(num);
+  void push(int _num) {
+    _stack.add(_num);
   }
 
   /* 出栈 */
@@ -65,7 +65,7 @@ void main() {
 
   /* 元素出栈 */
   final int pop = stack.pop();
-  print("出栈元素 pop = $pop，出栈后 stack = ${stack.toArray()}");
+  print("出栈元素 pop = $pop ，出栈后 stack = ${stack.toArray()}");
 
   /* 获取栈的长度 */
   final int size = stack.size();

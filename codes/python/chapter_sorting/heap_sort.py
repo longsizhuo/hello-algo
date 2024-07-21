@@ -16,7 +16,7 @@ def sift_down(nums: list[int], n: int, i: int):
             ma = l
         if r < n and nums[r] > nums[ma]:
             ma = r
-        # 若节点 i 最大或索引 l, r 越界，则无需继续堆化，跳出
+        # 若节点 i 最大或索引 l, r 越界，则无须继续堆化，跳出
         if ma == i:
             break
         # 交换两节点
@@ -32,11 +32,11 @@ def heap_sort(nums: list[int]):
         sift_down(nums, len(nums), i)
     # 从堆中提取最大元素，循环 n-1 轮
     for i in range(len(nums) - 1, 0, -1):
-        # 交换根节点与最右叶节点（即交换首元素与尾元素）
+        # 交换根节点与最右叶节点（交换首元素与尾元素）
         nums[0], nums[i] = nums[i], nums[0]
         # 以根节点为起点，从顶至底进行堆化
         sift_down(nums, i, 0)
-        
+
 
 """Driver Code"""
 if __name__ == "__main__":

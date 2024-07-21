@@ -8,7 +8,7 @@ const { Vertex } = require('../modules/Vertex');
 
 /* 基于邻接表实现的无向图类 */
 class GraphAdjList {
-    // 邻接表，key: 顶点，value：该顶点的所有邻接顶点
+    // 邻接表，key：顶点，value：该顶点的所有邻接顶点
     adjList;
 
     /* 构造方法 */
@@ -70,7 +70,7 @@ class GraphAdjList {
         // 在邻接表中删除顶点 vet 对应的链表
         this.adjList.delete(vet);
         // 遍历其他顶点的链表，删除所有包含 vet 的边
-        for (let set of this.adjList.values()) {
+        for (const set of this.adjList.values()) {
             const index = set.indexOf(vet);
             if (index > -1) {
                 set.splice(index, 1);

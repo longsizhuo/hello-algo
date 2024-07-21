@@ -17,7 +17,7 @@ struct Pair {
     }
 };
 
-/* 基于数组简易实现的哈希表 */
+/* 基于数组实现的哈希表 */
 class ArrayHashMap {
   private:
     vector<Pair *> buckets;
@@ -47,7 +47,7 @@ class ArrayHashMap {
         int index = hashFunc(key);
         Pair *pair = buckets[index];
         if (pair == nullptr)
-            return nullptr;
+            return "";
         return pair->val;
     }
 

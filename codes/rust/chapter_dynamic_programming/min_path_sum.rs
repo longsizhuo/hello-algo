@@ -1,7 +1,7 @@
 /*
  * File: min_path_sum.rs
  * Created Time: 2023-07-09
- * Author: sjinzh (sjinzh@gmail.com)
+ * Author: codingonion (coderonion@gmail.com)
  */
 
 /* 最小路径和：暴力搜索 */
@@ -15,8 +15,8 @@ fn min_path_sum_dfs(grid: &Vec<Vec<i32>>, i: i32, j: i32) -> i32 {
         return i32::MAX;
     }
     // 计算从左上角到 (i-1, j) 和 (i, j-1) 的最小路径代价
-    let left = min_path_sum_dfs(grid, i - 1, j);
-    let up = min_path_sum_dfs(grid, i, j - 1);
+    let up = min_path_sum_dfs(grid, i - 1, j);
+    let left = min_path_sum_dfs(grid, i, j - 1);
     // 返回从左上角到 (i, j) 的最小路径代价
     std::cmp::min(left, up) + grid[i as usize][j as usize]
 }
@@ -36,8 +36,8 @@ fn min_path_sum_dfs_mem(grid: &Vec<Vec<i32>>, mem: &mut Vec<Vec<i32>>, i: i32, j
         return mem[i as usize][j as usize];
     }
     // 左边和上边单元格的最小路径代价
-    let left = min_path_sum_dfs_mem(grid, mem, i - 1, j);
-    let up = min_path_sum_dfs_mem(grid, mem, i, j - 1);
+    let up = min_path_sum_dfs_mem(grid, mem, i - 1, j);
+    let left = min_path_sum_dfs_mem(grid, mem, i, j - 1);
     // 记录并返回左上角到 (i, j) 的最小路径代价
     mem[i as usize][j as usize] = std::cmp::min(left, up) + grid[i as usize][j as usize];
     mem[i as usize][j as usize]
@@ -57,7 +57,7 @@ fn min_path_sum_dp(grid: &Vec<Vec<i32>>) -> i32 {
     for i in 1..n {
         dp[i][0] = dp[i - 1][0] + grid[i][0];
     }
-    // 状态转移：其余行列
+    // 状态转移：其余行和列
     for i in 1..n {
         for j in 1..m {
             dp[i][j] = std::cmp::min(dp[i][j - 1], dp[i - 1][j]) + grid[i][j];
@@ -66,7 +66,7 @@ fn min_path_sum_dp(grid: &Vec<Vec<i32>>) -> i32 {
     dp[n - 1][m - 1]
 }
 
-/* 最小路径和：状态压缩后的动态规划 */
+/* 最小路径和：空间优化后的动态规划 */
 fn min_path_sum_dp_comp(grid: &Vec<Vec<i32>>) -> i32 {
     let (n, m) = (grid.len(), grid[0].len());
     // 初始化 dp 表
@@ -113,7 +113,7 @@ pub fn main() {
     let res = min_path_sum_dp(&grid);
     println!("从左上角到右下角的最小路径和为 {res}");
 
-    // 状态压缩后的动态规划
+    // 空间优化后的动态规划
     let res = min_path_sum_dp_comp(&grid);
     println!("从左上角到右下角的最小路径和为 {res}");
 }

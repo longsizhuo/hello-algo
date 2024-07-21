@@ -4,7 +4,7 @@
 * Author: hpstory (hpstory1024@163.com)
 */
 
-namespace hello_algo.chapter_hashing; 
+namespace hello_algo.chapter_hashing;
 
 public class built_in_hash {
     [Test]
@@ -25,11 +25,11 @@ public class built_in_hash {
         int hashStr = str.GetHashCode();
         Console.WriteLine("字符串 " + str + " 的哈希值为 " + hashStr);
 
-        object[] arr = { 12836, "小哈" };
+        object[] arr = [12836, "小哈"];
         int hashTup = arr.GetHashCode();
         Console.WriteLine("数组 [" + string.Join(", ", arr) + "] 的哈希值为 " + hashTup);
 
-        ListNode obj = new ListNode(0);
+        ListNode obj = new(0);
         int hashObj = obj.GetHashCode();
         Console.WriteLine("节点对象 " + obj + " 的哈希值为 " + hashObj);
     }

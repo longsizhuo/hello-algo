@@ -1,7 +1,7 @@
 /*
  * File: climbing_stairs_dp.rs
  * Created Time: 2023-07-09
- * Author: sjinzh (sjinzh@gmail.com)
+ * Author: codingonion (coderonion@gmail.com)
  */
 
 /* 爬楼梯：动态规划 */
@@ -20,7 +20,7 @@ fn climbing_stairs_dp(n: usize) -> i32 {
     dp[n]
 }
 
-/* 爬楼梯：状态压缩后的动态规划 */
+/* 爬楼梯：空间优化后的动态规划 */
 fn climbing_stairs_dp_comp(n: usize) -> i32 {
     if n == 1 || n == 2 { return n as i32; }
     let (mut a, mut b) = (1, 2);

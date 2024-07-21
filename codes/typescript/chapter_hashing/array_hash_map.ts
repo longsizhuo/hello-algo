@@ -15,7 +15,7 @@ class Pair {
     }
 }
 
-/* 基于数组简易实现的哈希表 */
+/* 基于数组实现的哈希表 */
 class ArrayHashMap {
     private readonly buckets: (Pair | null)[];
 
@@ -66,7 +66,7 @@ class ArrayHashMap {
         let arr: (number | undefined)[] = [];
         for (let i = 0; i < this.buckets.length; i++) {
             if (this.buckets[i]) {
-                arr.push(this.buckets[i]?.key);
+                arr.push(this.buckets[i].key);
             }
         }
         return arr;
@@ -77,7 +77,7 @@ class ArrayHashMap {
         let arr: (string | undefined)[] = [];
         for (let i = 0; i < this.buckets.length; i++) {
             if (this.buckets[i]) {
-                arr.push(this.buckets[i]?.val);
+                arr.push(this.buckets[i].val);
             }
         }
         return arr;
@@ -87,7 +87,6 @@ class ArrayHashMap {
     public print() {
         let pairSet = this.entries();
         for (const pair of pairSet) {
-            if (!pair) continue;
             console.info(`${pair.key} -> ${pair.val}`);
         }
     }
@@ -107,7 +106,7 @@ console.info('\n添加完成后，哈希表为\nKey -> Value');
 map.print();
 
 /* 查询操作 */
-// 向哈希表输入键 key ，得到值 value
+// 向哈希表中输入键 key ，得到值 value
 let name = map.get(15937);
 console.info('\n输入学号 15937 ，查询到姓名 ' + name);
 

@@ -19,17 +19,17 @@ class MaxHeap {
         }
     }
 
-    /* 获取左子节点索引 */
+    /* 获取左子节点的索引 */
     private left(i: number): number {
         return 2 * i + 1;
     }
 
-    /* 获取右子节点索引 */
+    /* 获取右子节点的索引 */
     private right(i: number): number {
         return 2 * i + 2;
     }
 
-    /* 获取父节点索引 */
+    /* 获取父节点的索引 */
     private parent(i: number): number {
         return Math.floor((i - 1) / 2); // 向下整除
     }
@@ -69,7 +69,7 @@ class MaxHeap {
         while (true) {
             // 获取节点 i 的父节点
             const p = this.parent(i);
-            // 当“越过根节点”或“节点无需修复”时，结束堆化
+            // 当“越过根节点”或“节点无须修复”时，结束堆化
             if (p < 0 || this.maxHeap[i] <= this.maxHeap[p]) break;
             // 交换两节点
             this.swap(i, p);
@@ -82,7 +82,7 @@ class MaxHeap {
     public pop(): number {
         // 判空处理
         if (this.isEmpty()) throw new RangeError('Heap is empty.');
-        // 交换根节点与最右叶节点（即交换首元素与尾元素）
+        // 交换根节点与最右叶节点（交换首元素与尾元素）
         this.swap(0, this.size() - 1);
         // 删除节点
         const val = this.maxHeap.pop();
@@ -101,7 +101,7 @@ class MaxHeap {
             let ma = i;
             if (l < this.size() && this.maxHeap[l] > this.maxHeap[ma]) ma = l;
             if (r < this.size() && this.maxHeap[r] > this.maxHeap[ma]) ma = r;
-            // 若节点 i 最大或索引 l, r 越界，则无需继续堆化，跳出
+            // 若节点 i 最大或索引 l, r 越界，则无须继续堆化，跳出
             if (ma === i) break;
             // 交换两节点
             this.swap(i, ma);
@@ -114,33 +114,42 @@ class MaxHeap {
     public print(): void {
         printHeap(this.maxHeap);
     }
+
+    /* 取出堆中元素 */
+    public getMaxHeap(): number[] {
+        return this.maxHeap;
+    }
 }
 
 /* Driver Code */
-/* 初始化大顶堆 */
-const maxHeap = new MaxHeap([9, 8, 6, 6, 7, 5, 2, 1, 4, 3, 6, 2]);
-console.log('\n输入列表并建堆后');
-maxHeap.print();
+if (require.main === module) {
+    /* 初始化大顶堆 */
+    const maxHeap = new MaxHeap([9, 8, 6, 6, 7, 5, 2, 1, 4, 3, 6, 2]);
+    console.log('\n输入列表并建堆后');
+    maxHeap.print();
 
-/* 获取堆顶元素 */
-let peek = maxHeap.peek();
-console.log(`\n堆顶元素为 ${peek}`);
+    /* 获取堆顶元素 */
+    let peek = maxHeap.peek();
+    console.log(`\n堆顶元素为 ${peek}`);
 
-/* 元素入堆 */
-const val = 7;
-maxHeap.push(val);
-console.log(`\n元素 ${val} 入堆后`);
-maxHeap.print();
+    /* 元素入堆 */
+    const val = 7;
+    maxHeap.push(val);
+    console.log(`\n元素 ${val} 入堆后`);
+    maxHeap.print();
 
-/* 堆顶元素出堆 */
-peek = maxHeap.pop();
-console.log(`\n堆顶元素 ${peek} 出堆后`);
-maxHeap.print();
+    /* 堆顶元素出堆 */
+    peek = maxHeap.pop();
+    console.log(`\n堆顶元素 ${peek} 出堆后`);
+    maxHeap.print();
 
-/* 获取堆大小 */
-const size = maxHeap.size();
-console.log(`\n堆元素数量为 ${size}`);
+    /* 获取堆大小 */
+    const size = maxHeap.size();
+    console.log(`\n堆元素数量为 ${size}`);
 
-/* 判断堆是否为空 */
-const isEmpty = maxHeap.isEmpty();
-console.log(`\n堆是否为空 ${isEmpty}`);
+    /* 判断堆是否为空 */
+    const isEmpty = maxHeap.isEmpty();
+    console.log(`\n堆是否为空 ${isEmpty}`);
+}
+
+export { MaxHeap };

@@ -8,7 +8,7 @@ include!("../include/include.rs");
 
 /* 大顶堆 */
 struct MaxHeap {
-    // 使用 vector 而非数组，这样无需考虑扩容问题
+    // 使用 vector 而非数组，这样无须考虑扩容问题
     max_heap: Vec<i32>,
 }
 
@@ -24,17 +24,17 @@ impl MaxHeap {
         heap
     }
 
-    /* 获取左子节点索引 */
+    /* 获取左子节点的索引 */
     fn left(i: usize) -> usize {
         2 * i + 1
     }
 
-    /* 获取右子节点索引 */
+    /* 获取右子节点的索引 */
     fn right(i: usize) -> usize {
         2 * i + 2
     }
 
-    /* 获取父节点索引 */
+    /* 获取父节点的索引 */
     fn parent(i: usize) -> usize {
         (i - 1) / 2 // 向下整除
     }
@@ -76,7 +76,7 @@ impl MaxHeap {
             }
             // 获取节点 i 的父节点
             let p = Self::parent(i);
-            // 当“节点无需修复”时，结束堆化
+            // 当“节点无须修复”时，结束堆化
             if self.max_heap[i] <= self.max_heap[p] {
                 break;
             }
@@ -93,7 +93,7 @@ impl MaxHeap {
         if self.is_empty() {
             panic!("index out of bounds");
         }
-        // 交换根节点与最右叶节点（即交换首元素与尾元素）
+        // 交换根节点与最右叶节点（交换首元素与尾元素）
         self.swap(0, self.size() - 1);
         // 删除节点
         let val = self.max_heap.remove(self.size() - 1);
@@ -114,7 +114,7 @@ impl MaxHeap {
             if r < self.size() && self.max_heap[r] > self.max_heap[ma] {
                 ma = r;
             }
-            // 若节点 i 最大或索引 l, r 越界，则无需继续堆化，跳出
+            // 若节点 i 最大或索引 l, r 越界，则无须继续堆化，跳出
             if ma == i {
                 break;
             }

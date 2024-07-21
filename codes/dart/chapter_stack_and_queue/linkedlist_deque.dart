@@ -7,8 +7,8 @@
 /* 双向链表节点 */
 class ListNode {
   int val; // 节点值
-  ListNode? next; // 后继节点引用（指针）
-  ListNode? prev; // 前驱节点引用（指针）
+  ListNode? next; // 后继节点引用
+  ListNode? prev; // 前驱节点引用
 
   ListNode(this.val, {this.next, this.prev});
 }
@@ -35,10 +35,10 @@ class LinkedListDeque {
   }
 
   /* 入队操作 */
-  void push(int num, bool isFront) {
-    final ListNode node = ListNode(num);
+  void push(int _num, bool isFront) {
+    final ListNode node = ListNode(_num);
     if (isEmpty()) {
-      // 若链表为空，则令 _front，_rear 都指向 node
+      // 若链表为空，则令 _front 和 _rear 都指向 node
       _front = _rear = node;
     } else if (isFront) {
       // 队首入队操作
@@ -57,13 +57,13 @@ class LinkedListDeque {
   }
 
   /* 队首入队 */
-  void pushFirst(int num) {
-    push(num, true);
+  void pushFirst(int _num) {
+    push(_num, true);
   }
 
   /* 队尾入队 */
-  void pushLast(int num) {
-    push(num, false);
+  void pushLast(int _num) {
+    push(_num, false);
   }
 
   /* 出队操作 */
@@ -153,9 +153,9 @@ void main() {
 
   /* 元素出队 */
   int? popLast = deque.popLast();
-  print("队尾出队元素 = $popLast，队尾出队后 deque = ${deque.toArray()}");
+  print("队尾出队元素 = $popLast ，队尾出队后 deque = ${deque.toArray()}");
   int? popFirst = deque.popFirst();
-  print("队首出队元素 = $popFirst，队首出队后 deque = ${deque.toArray()}");
+  print("队首出队元素 = $popFirst ，队首出队后 deque = ${deque.toArray()}");
 
   /* 获取双向队列的长度 */
   int size = deque.size();

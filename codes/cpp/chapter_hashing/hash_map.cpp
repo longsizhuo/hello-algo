@@ -22,7 +22,7 @@ int main() {
     printHashMap(map);
 
     /* 查询操作 */
-    // 向哈希表输入键 key ，得到值 value
+    // 向哈希表中输入键 key ，得到值 value
     string name = map[15937];
     cout << "\n输入学号 15937 ，查询到姓名 " << name << endl;
 
@@ -37,15 +37,9 @@ int main() {
     for (auto kv : map) {
         cout << kv.first << " -> " << kv.second << endl;
     }
-
-    cout << "\n单独遍历键 Key" << endl;
-    for (auto key : map) {
-        cout << key.first << endl;
-    }
-
-    cout << "\n单独遍历值 Value" << endl;
-    for (auto val : map) {
-        cout << val.second << endl;
+    cout << "\n使用迭代器遍历 Key->Value" << endl;
+    for (auto iter = map.begin(); iter != map.end(); iter++) {
+        cout << iter->first << "->" << iter->second << endl;
     }
 
     return 0;

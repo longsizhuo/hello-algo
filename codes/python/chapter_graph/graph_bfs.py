@@ -4,16 +4,17 @@ Created Time: 2023-02-23
 Author: Krahets (krahets@163.com)
 """
 
-import sys, os.path as osp
+import sys
+from pathlib import Path
 
-sys.path.append(osp.dirname(osp.dirname(osp.abspath(__file__))))
-from modules import *
+sys.path.append(str(Path(__file__).parent.parent))
+from modules import Vertex, vals_to_vets, vets_to_vals
 from collections import deque
 from graph_adjacency_list import GraphAdjList
 
 
 def graph_bfs(graph: GraphAdjList, start_vet: Vertex) -> list[Vertex]:
-    """广度优先遍历 BFS"""
+    """广度优先遍历"""
     # 使用邻接表来表示图，以便获取指定顶点的所有邻接顶点
     # 顶点遍历序列
     res = []
@@ -28,7 +29,7 @@ def graph_bfs(graph: GraphAdjList, start_vet: Vertex) -> list[Vertex]:
         # 遍历该顶点的所有邻接顶点
         for adj_vet in graph.adj_list[vet]:
             if adj_vet in visited:
-                continue  # 跳过已被访问过的顶点
+                continue  # 跳过已被访问的顶点
             que.append(adj_vet)  # 只入队未访问的顶点
             visited.add(adj_vet)  # 标记该顶点已被访问
     # 返回顶点遍历序列
@@ -57,7 +58,7 @@ if __name__ == "__main__":
     print("\n初始化后，图为")
     graph.print()
 
-    # 广度优先遍历 BFS
+    # 广度优先遍历
     res = graph_bfs(graph, v[0])
     print("\n广度优先遍历（BFS）顶点序列为")
     print(vets_to_vals(res))

@@ -1,16 +1,16 @@
 // File: knapsack.zig
 // Created Time: 2023-07-15
-// Author: sjinzh (sjinzh@gmail.com)
+// Author: codingonion (coderonion@gmail.com)
 
 const std = @import("std");
 
 // 0-1 背包：暴力搜索
 fn knapsackDFS(wgt: []i32, val: []i32, i: usize, c: usize) i32 {
-    // 若已选完所有物品或背包无容量，则返回价值 0
+    // 若已选完所有物品或背包无剩余容量，则返回价值 0
     if (i == 0 or c == 0) {
         return 0;
     }
-    // 若超过背包容量，则只能不放入背包
+    // 若超过背包容量，则只能选择不放入背包
     if (wgt[i - 1] > c) {
         return knapsackDFS(wgt, val, i - 1, c);
     }
@@ -23,7 +23,7 @@ fn knapsackDFS(wgt: []i32, val: []i32, i: usize, c: usize) i32 {
 
 // 0-1 背包：记忆化搜索
 fn knapsackDFSMem(wgt: []i32, val: []i32, mem: anytype, i: usize, c: usize) i32 {
-    // 若已选完所有物品或背包无容量，则返回价值 0
+    // 若已选完所有物品或背包无剩余容量，则返回价值 0
     if (i == 0 or c == 0) {
         return 0;
     }
@@ -31,7 +31,7 @@ fn knapsackDFSMem(wgt: []i32, val: []i32, mem: anytype, i: usize, c: usize) i32 
     if (mem[i][c] != -1) {
         return mem[i][c];
     }
-    // 若超过背包容量，则只能不放入背包
+    // 若超过背包容量，则只能选择不放入背包
     if (wgt[i - 1] > c) {
         return knapsackDFSMem(wgt, val, mem, i - 1, c);
     }
@@ -63,7 +63,7 @@ fn knapsackDP(comptime wgt: []i32, val: []i32, comptime cap: usize) i32 {
     return dp[n][cap];
 }
 
-// 0-1 背包：状态压缩后的动态规划
+// 0-1 背包：空间优化后的动态规划
 fn knapsackDPComp(wgt: []i32, val: []i32, comptime cap: usize) i32 {
     var n = wgt.len;
     // 初始化 dp 表
@@ -102,7 +102,7 @@ pub fn main() !void {
     res = knapsackDP(&wgt, &val, cap);
     std.debug.print("不超过背包容量的最大物品价值为 {}\n", .{res});
 
-    // 状态压缩后的动态规划
+    // 空间优化后的动态规划
     res = knapsackDPComp(&wgt, &val, cap);
     std.debug.print("不超过背包容量的最大物品价值为 {}\n", .{res});
 

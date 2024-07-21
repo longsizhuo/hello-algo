@@ -12,24 +12,21 @@ extern "C" {
 #endif
 
 /* 链表节点结构体 */
-struct ListNode {
+typedef struct ListNode {
     int val;               // 节点值
-    struct ListNode *next; // 指向下一节点的指针（引用）
-};
-
-// typedef 作用是为一种数据类型定义一个新名字
-typedef struct ListNode ListNode;
+    struct ListNode *next; // 指向下一节点的引用
+} ListNode;
 
 /* 构造函数，初始化一个新节点 */
 ListNode *newListNode(int val) {
-    ListNode *node, *next;
+    ListNode *node;
     node = (ListNode *)malloc(sizeof(ListNode));
     node->val = val;
     node->next = NULL;
     return node;
 }
 
-/* Generate a linked list with a vector */
+/* Generate a linked list with an array */
 ListNode *arrToLinkedList(const int *arr, size_t size) {
     if (size <= 0) {
         return NULL;
@@ -50,6 +47,17 @@ ListNode *getListNode(ListNode *head, int val) {
         head = head->next;
     }
     return head;
+}
+
+/* Free the memory allocated to a linked list */
+void freeMemoryLinkedList(ListNode *cur) {
+    // 释放内存
+    ListNode *pre;
+    while (cur != NULL) {
+        pre = cur;
+        cur = cur->next;
+        free(pre);
+    }
 }
 
 #ifdef __cplusplus

@@ -14,11 +14,11 @@ def coin_change_dp(coins: list[int], amt: int) -> int:
     # 状态转移：首行首列
     for a in range(1, amt + 1):
         dp[0][a] = MAX
-    # 状态转移：其余行列
+    # 状态转移：其余行和列
     for i in range(1, n + 1):
         for a in range(1, amt + 1):
             if coins[i - 1] > a:
-                # 若超过背包容量，则不选硬币 i
+                # 若超过目标金额，则不选硬币 i
                 dp[i][a] = dp[i - 1][a]
             else:
                 # 不选和选硬币 i 这两种方案的较小值
@@ -27,7 +27,7 @@ def coin_change_dp(coins: list[int], amt: int) -> int:
 
 
 def coin_change_dp_comp(coins: list[int], amt: int) -> int:
-    """零钱兑换：状态压缩后的动态规划"""
+    """零钱兑换：空间优化后的动态规划"""
     n = len(coins)
     MAX = amt + 1
     # 初始化 dp 表
@@ -38,7 +38,7 @@ def coin_change_dp_comp(coins: list[int], amt: int) -> int:
         # 正序遍历
         for a in range(1, amt + 1):
             if coins[i - 1] > a:
-                # 若超过背包容量，则不选硬币 i
+                # 若超过目标金额，则不选硬币 i
                 dp[a] = dp[a]
             else:
                 # 不选和选硬币 i 这两种方案的较小值
@@ -55,6 +55,6 @@ if __name__ == "__main__":
     res = coin_change_dp(coins, amt)
     print(f"凑到目标金额所需的最少硬币数量为 {res}")
 
-    # 状态压缩后的动态规划
+    # 空间优化后的动态规划
     res = coin_change_dp_comp(coins, amt)
     print(f"凑到目标金额所需的最少硬币数量为 {res}")

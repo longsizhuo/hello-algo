@@ -20,7 +20,7 @@ public class heap_sort {
                 ma = l;
             if (r < n && nums[r] > nums[ma])
                 ma = r;
-            // 若节点 i 最大或索引 l, r 越界，则无需继续堆化，跳出
+            // 若节点 i 最大或索引 l, r 越界，则无须继续堆化，跳出
             if (ma == i)
                 break;
             // 交换两节点
@@ -40,7 +40,7 @@ public class heap_sort {
         }
         // 从堆中提取最大元素，循环 n-1 轮
         for (int i = nums.length - 1; i > 0; i--) {
-            // 交换根节点与最右叶节点（即交换首元素与尾元素）
+            // 交换根节点与最右叶节点（交换首元素与尾元素）
             int tmp = nums[0];
             nums[0] = nums[i];
             nums[i] = tmp;

@@ -11,7 +11,7 @@ import java.util.*;
 
 /* 大顶堆 */
 class MaxHeap {
-    // 使用列表而非数组，这样无需考虑扩容问题
+    // 使用列表而非数组，这样无须考虑扩容问题
     private List<Integer> maxHeap;
 
     /* 构造方法，根据输入列表建堆 */
@@ -24,17 +24,17 @@ class MaxHeap {
         }
     }
 
-    /* 获取左子节点索引 */
+    /* 获取左子节点的索引 */
     private int left(int i) {
         return 2 * i + 1;
     }
 
-    /* 获取右子节点索引 */
+    /* 获取右子节点的索引 */
     private int right(int i) {
         return 2 * i + 2;
     }
 
-    /* 获取父节点索引 */
+    /* 获取父节点的索引 */
     private int parent(int i) {
         return (i - 1) / 2; // 向下整除
     }
@@ -74,7 +74,7 @@ class MaxHeap {
         while (true) {
             // 获取节点 i 的父节点
             int p = parent(i);
-            // 当“越过根节点”或“节点无需修复”时，结束堆化
+            // 当“越过根节点”或“节点无须修复”时，结束堆化
             if (p < 0 || maxHeap.get(i) <= maxHeap.get(p))
                 break;
             // 交换两节点
@@ -89,7 +89,7 @@ class MaxHeap {
         // 判空处理
         if (isEmpty())
             throw new IndexOutOfBoundsException();
-        // 交换根节点与最右叶节点（即交换首元素与尾元素）
+        // 交换根节点与最右叶节点（交换首元素与尾元素）
         swap(0, size() - 1);
         // 删除节点
         int val = maxHeap.remove(size() - 1);
@@ -108,7 +108,7 @@ class MaxHeap {
                 ma = l;
             if (r < size() && maxHeap.get(r) > maxHeap.get(ma))
                 ma = r;
-            // 若节点 i 最大或索引 l, r 越界，则无需继续堆化，跳出
+            // 若节点 i 最大或索引 l, r 越界，则无须继续堆化，跳出
             if (ma == i)
                 break;
             // 交换两节点

@@ -14,11 +14,11 @@ func coinChangeDP(coins: [Int], amt: Int) -> Int {
     for a in stride(from: 1, through: amt, by: 1) {
         dp[0][a] = MAX
     }
-    // 状态转移：其余行列
+    // 状态转移：其余行和列
     for i in stride(from: 1, through: n, by: 1) {
         for a in stride(from: 1, through: amt, by: 1) {
             if coins[i - 1] > a {
-                // 若超过背包容量，则不选硬币 i
+                // 若超过目标金额，则不选硬币 i
                 dp[i][a] = dp[i - 1][a]
             } else {
                 // 不选和选硬币 i 这两种方案的较小值
@@ -29,7 +29,7 @@ func coinChangeDP(coins: [Int], amt: Int) -> Int {
     return dp[n][amt] != MAX ? dp[n][amt] : -1
 }
 
-/* 零钱兑换：状态压缩后的动态规划 */
+/* 零钱兑换：空间优化后的动态规划 */
 func coinChangeDPComp(coins: [Int], amt: Int) -> Int {
     let n = coins.count
     let MAX = amt + 1
@@ -40,7 +40,7 @@ func coinChangeDPComp(coins: [Int], amt: Int) -> Int {
     for i in stride(from: 1, through: n, by: 1) {
         for a in stride(from: 1, through: amt, by: 1) {
             if coins[i - 1] > a {
-                // 若超过背包容量，则不选硬币 i
+                // 若超过目标金额，则不选硬币 i
                 dp[a] = dp[a]
             } else {
                 // 不选和选硬币 i 这两种方案的较小值
@@ -62,7 +62,7 @@ enum CoinChange {
         var res = coinChangeDP(coins: coins, amt: amt)
         print("凑到目标金额所需的最少硬币数量为 \(res)")
 
-        // 状态压缩后的动态规划
+        // 空间优化后的动态规划
         res = coinChangeDPComp(coins: coins, amt: amt)
         print("凑到目标金额所需的最少硬币数量为 \(res)")
     }

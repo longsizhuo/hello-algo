@@ -1,12 +1,12 @@
 /*
  * File: climbing_stairs_constraint_dp.rs
  * Created Time: 2023-07-09
- * Author: sjinzh (sjinzh@gmail.com)
+ * Author: codingonion (coderonion@gmail.com)
  */
 
 /* 带约束爬楼梯：动态规划 */
 fn climbing_stairs_constraint_dp(n: usize) -> i32 {
-    if n == 1 || n == 2 { return n as i32 };
+    if n == 1 || n == 2 { return 1 };
     // 初始化 dp 表，用于存储子问题的解
     let mut dp = vec![vec![-1; 3]; n + 1];
     // 初始状态：预设最小子问题的解

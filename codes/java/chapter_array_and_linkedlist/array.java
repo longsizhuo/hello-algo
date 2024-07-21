@@ -10,7 +10,7 @@ import java.util.*;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class array {
-    /* 随机返回一个数组元素 */
+    /* 随机访问元素 */
     static int randomAccess(int[] nums) {
         // 在区间 [0, nums.length) 中随机抽取一个数字
         int randomIndex = ThreadLocalRandom.current().nextInt(0, nums.length);
@@ -37,11 +37,11 @@ public class array {
         for (int i = nums.length - 1; i > index; i--) {
             nums[i] = nums[i - 1];
         }
-        // 将 num 赋给 index 处元素
+        // 将 num 赋给 index 处的元素
         nums[index] = num;
     }
 
-    /* 删除索引 index 处元素 */
+    /* 删除索引 index 处的元素 */
     static void remove(int[] nums, int index) {
         // 把索引 index 之后的所有元素向前移动一位
         for (int i = index; i < nums.length - 1; i++) {
@@ -54,11 +54,11 @@ public class array {
         int count = 0;
         // 通过索引遍历数组
         for (int i = 0; i < nums.length; i++) {
-            count++;
+            count += nums[i];
         }
-        // 直接遍历数组
+        // 直接遍历数组元素
         for (int num : nums) {
-            count++;
+            count += num;
         }
     }
 
