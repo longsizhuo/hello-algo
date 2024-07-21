@@ -4,7 +4,7 @@
 
 package chapter_backtracking
 
-/* 回溯算法：N 皇后 */
+/* 回溯算法：n 皇后 */
 func backtrack(row, n int, state *[][]string, res *[][][]string, cols, diags1, diags2 *[]bool) {
 	// 当放置完所有行时，记录解
 	if row == n {
@@ -15,6 +15,7 @@ func backtrack(row, n int, state *[][]string, res *[][][]string, cols, diags1, d
 
 		}
 		*res = append(*res, newState)
+		return
 	}
 	// 遍历所有列
 	for col := 0; col < n; col++ {
@@ -35,6 +36,7 @@ func backtrack(row, n int, state *[][]string, res *[][][]string, cols, diags1, d
 	}
 }
 
+/* 求解 n 皇后 */
 func nQueens(n int) [][][]string {
 	// 初始化 n*n 大小的棋盘，其中 'Q' 代表皇后，'#' 代表空位
 	state := make([][]string, n)
